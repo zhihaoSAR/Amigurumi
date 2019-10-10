@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class move : MonoBehaviour
 {
-    public float speed,speedH,speedV;
-    public GameObject light;
+    public float speed,speedH,speedV,limitUp,limitDown;
     private float yaw = 0, pitch = 0;   
     // Start is called before the first frame update
     void Start()
@@ -15,11 +14,13 @@ public class move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        
     }
     void FixedUpdate()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -27,14 +28,22 @@ public class move : MonoBehaviour
 
         yaw += speedH * Input.GetAxis("Mouse X");
         pitch -= speedV * Input.GetAxis("Mouse Y");
+        if(pitch < limitDown)
+        {
+            pitch = limitDown;
+        }
+        else if(pitch > limitUp)
+        {
+            pitch = limitUp;
+        }
 
         transform.eulerAngles = new Vector3(pitch, yaw, 0);
-        light.transform.eulerAngles = transform.eulerAngles;
+        transform.GetChild(0).transform.eulerAngles = new Vector3(-pitch, 0, 0);
 
         //float dir = Vector3.Angle(tr.position, Vector3.forward);
 
         transform.position += Quaternion.Euler(0,transform.eulerAngles.y,0)* (movement * speed);
-        light.transform.position = transform.position;
+        transform.position = transform.position;
 
     }
 
