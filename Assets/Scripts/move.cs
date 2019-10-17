@@ -44,7 +44,15 @@ public class move : MonoBehaviour
 
         transform.position += Quaternion.Euler(0,transform.eulerAngles.y,0)* (movement * speed);
         transform.position = transform.position;
-
     }
 
+
+    public void OnVerticalChanged(float v)
+    {
+        speedV = v;
+    }
+    public void OnHorizontalChanged(float v)
+    {
+        speedH = v;
+    }
 }
