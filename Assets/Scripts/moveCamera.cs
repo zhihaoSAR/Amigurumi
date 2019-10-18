@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class move : MonoBehaviour
+public class moveCamera : MonoBehaviour
 {
-    public float speed,speedH,speedV,limitUp,limitDown;
+    public float speedH,speedV,limitUp,limitDown;
     private float yaw = 0, pitch = 0;   
     // Start is called before the first frame update
     void Start()
@@ -18,13 +18,12 @@ public class move : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        //float moveHorizontal = Input.GetAxis("Horizontal");
+        //float moveVertical = Input.GetAxis("Vertical");
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+        //Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
         yaw += speedH * Input.GetAxis("Mouse X");
         pitch -= speedV * Input.GetAxis("Mouse Y");
@@ -38,12 +37,12 @@ public class move : MonoBehaviour
         }
 
         transform.eulerAngles = new Vector3(pitch, yaw, 0);
-        transform.GetChild(0).transform.eulerAngles = new Vector3(-pitch, 0, 0);
+        transform.GetChild(0).transform.eulerAngles = new Vector3(0, -yaw, 0);
 
         //float dir = Vector3.Angle(tr.position, Vector3.forward);
 
-        transform.position += Quaternion.Euler(0,transform.eulerAngles.y,0)* (movement * speed);
-        transform.position = transform.position;
+        //transform.position += Quaternion.Euler(0,transform.eulerAngles.y,0)* (movement * speed);
+        //transform.position = transform.position;
     }
 
 
