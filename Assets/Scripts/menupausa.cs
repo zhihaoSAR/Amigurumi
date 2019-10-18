@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class menupausa : MonoBehaviour
 {
-    public Canvas menu;
+    public Canvas menu,ui;
     private bool pausaActivated = true;
     // Start is called before the first frame update
     void Start()
     {
         menu.enabled = false;
+        ui.enabled = true;
     }
 
     // Update is called once per frame
@@ -31,6 +32,7 @@ public class menupausa : MonoBehaviour
         if (pausaActivated)
         {
             menu.enabled = !menu.enabled;
+            ui.enabled = !ui.enabled;
             pausaActivated = false;
             if (menu.enabled)
             {
