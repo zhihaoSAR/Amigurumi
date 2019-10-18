@@ -11,6 +11,8 @@ public class menupausa : MonoBehaviour
     {
         menu.enabled = false;
         ui.enabled = true;
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
     }
 
     // Update is called once per frame

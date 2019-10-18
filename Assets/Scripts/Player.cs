@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
         foreach (Transform e in enemies.transform)
         {
             Vector3 pos = camera.WorldToViewportPoint(e.position);
-            if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax)
+            if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax && pos.z >=0)
             {
                 recibirDano();
             }

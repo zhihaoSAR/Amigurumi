@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class move : MonoBehaviour
 {
-    public float speed,speedH,speedV,limitUp,limitDown;
-    private float yaw = 0, pitch = 0;   
+    public float speed;
+    public CharacterController controller;
     // Start is called before the first frame update
     void Start()
     {
+        controller = GetComponent<CharacterController>();
     }
 
     // Update is called once per frame
@@ -16,43 +17,19 @@ public class move : MonoBehaviour
     {
         
     }
+
     void FixedUpdate()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        
+        float horizontal = Input.GetAxis("Horizontal"); 
+        float vertical = Input.GetAxis("Vertical");
+        
+        float moveY = 0, m_gravity = 10f;
+        moveY -= m_gravity * Time.deltaTime;
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
+                        new Vector3(horizontal, moveY, vertical);
+        controller.Move(movement * speed * Time.deltaTime);
 
-        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
-        yaw += speedH * Input.GetAxis("Mouse X");
-        pitch -= speedV * Input.GetAxis("Mouse Y");
-        if(pitch < limitDown)
-        {
-            pitch = limitDown;
-        }
-        else if(pitch > limitUp)
-        {
-            pitch = limitUp;
-        }
-
-        transform.eulerAngles = new Vector3(pitch, yaw, 0);
-        transform.GetChild(0).transform.eulerAngles = new Vector3(-pitch, 0, 0);
-
-        //float dir = Vector3.Angle(tr.position, Vector3.forward);
-
-        transform.position += Quaternion.Euler(0,transform.eulerAngles.y,0)* (movement * speed);
-        transform.position = transform.position;
-    }
-
-
-    public void OnVerticalChanged(float v)
-    {
-        speedV = v;
-    }
-    public void OnHorizontalChanged(float v)
-    {
-        speedH = v;
     }
 }
