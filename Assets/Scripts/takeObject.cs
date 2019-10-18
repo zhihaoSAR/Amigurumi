@@ -33,7 +33,7 @@ public class takeObject : MonoBehaviour
 
                 if (obj.tag == "KeyObject")
                 {
-                    if(Input.GetButton("coger"))
+                    if(Input.GetButton("interactuar"))
                     {
                         Destroy(obj);
                     }
