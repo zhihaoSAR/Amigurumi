@@ -36,8 +36,8 @@ public class moveCamera : MonoBehaviour
             pitch = limitUp;
         }
 
-        transform.eulerAngles = new Vector3(pitch, yaw, 0);
-        transform.GetChild(0).transform.eulerAngles = new Vector3(0, -yaw, 0);
+        transform.eulerAngles = new Vector3(0, yaw, 0);
+        transform.GetChild(0).transform.eulerAngles = new Vector3(pitch, yaw, 0);
 
         //float dir = Vector3.Angle(tr.position, Vector3.forward);
 
