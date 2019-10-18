@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     public float cordura,energia;
-
+    public Slider barra_cordura;
+    private bool recibiendoDano = false;
     public GameObject enemies;
     //valor entre 0-1
     public float hMin, hMax, wMin, wMax;
@@ -25,6 +27,8 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        
+
         foreach (Transform e in enemies.transform)
         {
             Vector3 pos = camera.WorldToViewportPoint(e.position);
@@ -34,12 +38,20 @@ public class Player : MonoBehaviour
             }
 
         }
+        if (!recibiendoDano)
+        {
+            cordura = cordura >= 995 ? 1000 : cordura+5;
+            barra_cordura.value = cordura;
+        }
+        recibiendoDano = false;
     }
 
     void recibirDano()
     {
-        Debug.Log("mi cordura: " + cordura);
-        cordura -= 1;
+        //Debug.Log("mi cordura: " + cordura);
+        cordura -= 5;
+        barra_cordura.value = cordura;
+        recibiendoDano = true;
         if(cordura <= 0)
         {
             Debug.Log("GAME OVER");
