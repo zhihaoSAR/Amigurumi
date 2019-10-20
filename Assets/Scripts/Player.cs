@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     public float cordura,energia;
     public Slider barra_cordura;
     private bool recibiendoDano = false;
-    public GameObject enemies;
     //valor entre 0-1
     public float hMin, hMax, wMin, wMax;
     private Camera camera;
@@ -28,19 +27,6 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (enemies)
-        {
-            foreach (Transform e in enemies.transform)
-            {
-                Vector3 pos = camera.WorldToViewportPoint(e.position);
-                if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax && pos.z >= 0)
-                {
-                    recibirDano();
-                }
-
-            }
-        }
-        
         if (!recibiendoDano)
         {
             cordura = cordura >= 995 ? 1000 : cordura+5;
@@ -49,15 +35,20 @@ public class Player : MonoBehaviour
         recibiendoDano = false;
     }
 
-    void recibirDano()
+    public void recibirDano(Vector3 ePos)
     {
-        //Debug.Log("mi cordura: " + cordura);
-        cordura -= 5;
-        barra_cordura.value = cordura;
-        recibiendoDano = true;
-        if(cordura <= 0)
+        Vector3 pos = camera.WorldToViewportPoint(ePos);
+        if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax && pos.z >= 0)
         {
-            Debug.Log("GAME OVER");
+            cordura -= 150* Time.deltaTime;
+            barra_cordura.value = cordura;
+            recibiendoDano = true;
+            if (cordura <= 0)
+            {
+                Debug.Log("GAME OVER");
+            }
         }
+
+        
     }
 }
