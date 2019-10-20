@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        camera = GetComponent<Camera>();
+        camera = transform.GetChild(0).GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -27,17 +27,20 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        
 
-        foreach (Transform e in enemies.transform)
+        if (enemies)
         {
-            Vector3 pos = camera.WorldToViewportPoint(e.position);
-            if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax && pos.z >=0)
+            foreach (Transform e in enemies.transform)
             {
-                recibirDano();
-            }
+                Vector3 pos = camera.WorldToViewportPoint(e.position);
+                if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax && pos.z >= 0)
+                {
+                    recibirDano();
+                }
 
+            }
         }
+        
         if (!recibiendoDano)
         {
             cordura = cordura >= 995 ? 1000 : cordura+5;
