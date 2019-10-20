@@ -6,6 +6,7 @@ TagManager:
   tags:
   - KeyObject
   - Enemy
+  - Pushable
   layers:
   - Default
   - TransparentFX
