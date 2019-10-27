@@ -31,7 +31,6 @@ public class push : MonoBehaviour
         if(hit.gameObject.tag == "Pushable")
         {
             Vector3 powerDir = hit.moveDirection.normalized;
-            //body.AddForce(new Vector3(powerDir.x,0,powerDir.z) * power,ForceMode.Acceleration);
             body.MovePosition(body.transform.position + powerDir * Time.deltaTime);
         }
         
