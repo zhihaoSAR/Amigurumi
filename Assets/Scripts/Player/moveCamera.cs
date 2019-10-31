@@ -5,10 +5,12 @@ using UnityEngine;
 public class moveCamera : MonoBehaviour
 {
     public float speedH,speedV,limitUp,limitDown;
-    private float yaw = 0, pitch = 0;   
+    private float yaw = 0, pitch = 0;
+    public Camera camera;
     // Start is called before the first frame update
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -37,7 +39,7 @@ public class moveCamera : MonoBehaviour
         }
 
         transform.eulerAngles = new Vector3(0, yaw, 0);
-        transform.GetChild(0).transform.eulerAngles = new Vector3(pitch, yaw, 0);
+        camera.transform.eulerAngles = new Vector3(pitch, yaw, 0);
 
         //float dir = Vector3.Angle(tr.position, Vector3.forward);
 
@@ -53,5 +55,10 @@ public class moveCamera : MonoBehaviour
     public void OnHorizontalChanged(float v)
     {
         speedH = v;
+    }
+
+    public void moveCameraWithBaby(Vector3 pos)
+    {
+        transform.position = pos;
     }
 }

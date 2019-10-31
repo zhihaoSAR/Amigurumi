@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class takeObject : MonoBehaviour
 {
 
@@ -21,22 +22,31 @@ public class takeObject : MonoBehaviour
         State = Mode.PLAY;
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (State == Mode.PLAY)
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, distance))
         {
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit,distance))
-            {
-                obj = hit.collider.gameObject;
+            obj = hit.collider.gameObject;
 
-                if (obj.tag == "KeyObject")
+            if (obj.CompareTag("KeyObject"))
+            {
+                if (Input.GetButtonDown("interactuar"))
                 {
-                    if(Input.GetButton("interactuar"))
+                    Interactuable func = obj.GetComponent<Interactuable>();
+                    if (func.interactuable())
                     {
-                        Destroy(obj);
+
                     }
+                    Destroy(obj);
+                }
+            }
+            if (obj.CompareTag("Pushble"))
+            {
+                if (Input.GetButton("interactuar"))
+                {
+                    Interactuable func = obj.GetComponent<Interactuable>();
+                    func.OnInteraction();
                 }
             }
         }
