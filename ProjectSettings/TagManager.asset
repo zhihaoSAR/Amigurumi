@@ -7,7 +7,6 @@ TagManager:
   - KeyObject
   - Enemy
   - Pushable
-  - Interactable
   layers:
   - Default
   - TransparentFX

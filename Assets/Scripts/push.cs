@@ -28,7 +28,7 @@ public class push : MonoBehaviour
         {
             return;
         }
-        if(hit.gameObject.CompareTag("Pushable"))
+        if(hit.gameObject.tag == "Pushable")
         {
             Vector3 powerDir = hit.moveDirection.normalized;
             body.MovePosition(body.transform.position + powerDir * Time.deltaTime);
