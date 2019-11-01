@@ -14,7 +14,8 @@ public class Player : MonoBehaviour
     public Camera camera;
 
     // mover
-    public float speed, runSpeed,horizontal, vertical,m_gravity = 10f;
+    public float speed, runSpeed;
+    float horizontal, vertical, m_gravity = 10f;
     private CharacterController controller;
     public bool controllable = true;
     string lastAnimation = "parado";
