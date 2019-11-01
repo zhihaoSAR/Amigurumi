@@ -34,9 +34,11 @@ public class Player : MonoBehaviour
     Interactuable func;
 
     //variable para controlar empujar
-    Vector3 limitMin, limitMax;
+    bool limited;
+    Vector3 rail,limitMin,limitMax; 
     float pushSpeed;
     Rigidbody pushObj;
+    Vector3 startPos;
 
     //valor entre 0-1
     //si el amigurumi esta dentro de (wMin,hMin) (wMax,hMax) recibe dano
@@ -82,6 +84,9 @@ public class Player : MonoBehaviour
                     {
                         func = obj.GetComponent<Interactuable>();
                     }
+                    //calcular donde empieza a empujar
+                    Vector3 dir = (hit.point - transform.position).normalized;
+                    startPos =hit.point -dir ;
                     func.OnInteraction();
                 }
             }
@@ -104,8 +109,8 @@ public class Player : MonoBehaviour
         {
             pitch = limitUp;
         }
-
-        camera.transform.eulerAngles = new Vector3(pitch, transform.eulerAngles.y, 0);
+        
+        
 
         if (controllable)
         {
@@ -142,12 +147,16 @@ public class Player : MonoBehaviour
                     setAnimation("parado");
                 }
                 //rotacion del player
+                
+                camera.transform.eulerAngles = new Vector3(pitch, transform.eulerAngles.y, 0);
                 transform.eulerAngles = new Vector3(0, yaw, 0);
+
                 //posicion del player
                 controller.Move(movement * speed * Time.deltaTime);
             }
             else
             {
+                camera.transform.eulerAngles = new Vector3(pitch, yaw, 0);
                 if (Input.GetButton("interactuar"))
                 {
                     Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
@@ -167,12 +176,32 @@ public class Player : MonoBehaviour
                         animator.speed = 1;
                     }
                     Vector3 moveStep = movement * pushSpeed * Time.deltaTime;
-                    Vector3 objetivo = pushObj.transform.position + moveStep;
-                    if (isGreaterOrEqual(objetivo, limitMin) && !isGreaterOrEqual(objetivo, limitMax))
+                    Vector3 objetivo;
+                    if (limited)
                     {
-                        controller.Move(moveStep);
-                        pushObj.MovePosition(objetivo);
+
+                        moveStep = Vector3.Project(moveStep, rail);
+                        
+                        objetivo = pushObj.position + moveStep;
+                        if (isGreaterOrEqual(objetivo, limitMax))
+                        {
+                            objetivo = limitMax;
+                        }
+                        else if (isGreaterOrEqual(limitMin, objetivo))
+                        {
+                            objetivo = limitMin;
+                        }
+
                     }
+                    else
+                    {
+                        objetivo = pushObj.position + moveStep;
+                        
+                    }
+
+                    Vector3 lastPosicion = pushObj.position;
+                    pushObj.MovePosition(objetivo);
+                    controller.Move(pushObj.position - lastPosicion);
                 }
                 else
                 {
@@ -233,18 +262,30 @@ public class Player : MonoBehaviour
 
     }
 
-    public void empujar(Vector3 startPos,Rigidbody obj,Vector3 limitMin,Vector3 limitMax,float pushSpeed)
+    public void empujar(Rigidbody obj,Transform limitMin,Transform limitMax,float pushSpeed)
     {
-        this.limitMin = limitMin;
-        this.limitMax = limitMax;
+        if(limitMax)
+        {
+            limited = true;
+            rail = limitMax.position - limitMin.position;
+            this.limitMax = limitMax.position;
+            this.limitMin = limitMin.position;
+        }
+        else
+        {
+            limited = false;
+        }
+        
+        
         this.pushSpeed = pushSpeed;
         pushObj = obj;
+        
         state = Estado.PUSH;
         controllable = false;
         setAnimation("empujar");
-        StartCoroutine(goToStartPos(startPos, 0.2f));
+        StartCoroutine(goToStartPos(startPos, 0.5f));
     }
-    IEnumerator goToStartPos(Vector3 pos,float seconds)
+    IEnumerator goToStartPos(Vector3 pos, float seconds)
     {
         float time = 0;
         Vector3 movement = pos - transform.position;
