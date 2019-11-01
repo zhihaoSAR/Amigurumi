@@ -1131,7 +1131,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1605026967}
         m_MethodName: OnHorizontalChanged
         m_Mode: 0
         m_Arguments:
@@ -3490,11 +3490,8 @@ GameObject:
   - component: {fileID: 1605026960}
   - component: {fileID: 1605026963}
   - component: {fileID: 1605026961}
-  - component: {fileID: 1605026966}
   - component: {fileID: 1605026965}
-  - component: {fileID: 1605026964}
   - component: {fileID: 1605026967}
-  - component: {fileID: 1605026968}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -3539,22 +3536,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1605026959}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1605026964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605026959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d46738add6e53674ebb05a99c56786b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  runSpeed: 1.5
-  controllable: 1
-  animator: {fileID: 3166231814378928038}
 --- !u!143 &1605026965
 CharacterController:
   m_ObjectHideFlags: 0
@@ -3573,23 +3554,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1605026966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605026959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 263941b7b140d5a4b96927e0e7b827b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedH: 5
-  speedV: 5
-  limitUp: 50
-  limitDown: -50
-  camera: {fileID: 1864325191}
 --- !u!114 &1605026967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3602,27 +3566,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4152d812575f1438e0d4c73308b6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   cordura: 1000
   energia: 0
   barra_cordura: {fileID: 1766355621}
   camera: {fileID: 1864325191}
+  speed: 5
+  runSpeed: 1.5
+  horizontal: 0
+  vertical: 0
+  m_gravity: 10
+  controllable: 1
+  animator: {fileID: 3166231814378928038}
+  speedH: 5
+  speedV: 5
+  limitUp: 50
+  limitDown: -50
+  distance: 3
   hMin: 0.2
   hMax: 0.8
   wMin: 0.2
   wMax: 0.8
---- !u!114 &1605026968
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605026959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd1199ecc4b23614aa24f7f45d0b06ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  power: 500
 --- !u!1 &1606646723
 GameObject:
   m_ObjectHideFlags: 0
@@ -4306,9 +4270,10 @@ GameObject:
   - component: {fileID: 1781971295}
   - component: {fileID: 1781971296}
   - component: {fileID: 1781971294}
+  - component: {fileID: 1781971297}
   m_Layer: 0
   m_Name: Silla
-  m_TagString: Pushable
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4345,7 +4310,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!65 &1781971295
 BoxCollider:
@@ -4373,6 +4338,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.07, y: 0.65, z: 0.1}
   m_Center: {x: 0, y: 0.35, z: 0}
+--- !u!114 &1781971297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781971292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a683b45138ec434c89b2249fb062322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subible: 0
+  interactuable: 1
+  startPos: {x: 26.99, y: -10.35, z: -13.25}
+  limitMin: {x: -71.8, y: -20.8, z: -25.98}
+  limitMax: {x: 38.7, y: 0, z: 39}
+  speed: 2.5
 --- !u!1 &1789337808
 GameObject:
   m_ObjectHideFlags: 0
@@ -4464,6 +4447,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1789337808}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1798840408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1798840409}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1798840409
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1798840408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 26.99, y: -10.35, z: -13.25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1852785175
 GameObject:
   m_ObjectHideFlags: 0
@@ -4826,7 +4839,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2054548693}
-  - component: {fileID: 2054548692}
   - component: {fileID: 2054548695}
   m_Layer: 0
   m_Name: MainControl
@@ -4835,19 +4847,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2054548692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054548691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3ebb55b5f8d82445965eb5bb45ef5d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distance: 10
 --- !u!4 &2054548693
 Transform:
   m_ObjectHideFlags: 0
@@ -5093,7 +5092,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1605026967}
         m_MethodName: OnVerticalChanged
         m_Mode: 0
         m_Arguments:

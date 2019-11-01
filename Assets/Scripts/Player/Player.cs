@@ -14,18 +14,29 @@ public class Player : MonoBehaviour
     public Camera camera;
 
     // mover
-    public float speed, runSpeed;
+    public float speed, runSpeed,horizontal, vertical,m_gravity = 10f;
     private CharacterController controller;
     public bool controllable = true;
     string lastAnimation = "parado";
     public Animator animator;
+    
 
     //moverCamara
     public float speedH, speedV, //variable que controla la sensibilidad
                     limitUp, limitDown; // para controlar limite de la rotacion x 
     private float yaw = 0, pitch = 0;
 
+    //controlar interaccion
+    Ray ray;
+    RaycastHit hit;
+    GameObject obj;
+    public float distance;
+    Interactuable func;
 
+    //variable para controlar empujar
+    Vector3 limitMin, limitMax;
+    float pushSpeed;
+    Rigidbody pushObj;
 
     //valor entre 0-1
     //si el amigurumi esta dentro de (wMin,hMin) (wMax,hMax) recibe dano
@@ -41,6 +52,47 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        //obtener que ha visto el jugador
+        ray = camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, distance))
+        {
+            obj = hit.collider.gameObject;
+
+            if (obj.CompareTag("KeyObject"))
+            {
+                if (Input.GetButtonDown("interactuar"))
+                {
+                    if (func == null)
+                    {
+                        func = obj.GetComponent<Interactuable>();
+                    }
+                    
+                    if (func.interactuable())
+                    {
+
+                    }
+                    Destroy(obj);
+                }
+            }
+            else if (obj.CompareTag("Interactable"))
+            {
+                if (Input.GetButtonDown("interactuar") && state.Equals(Estado.MOVE))
+                {
+                    if (func == null)
+                    {
+                        func = obj.GetComponent<Interactuable>();
+                    }
+                    func.OnInteraction();
+                }
+            }
+            else
+            {
+                func = null;
+            }
+        }
+
+
+
         //controlar la rotacion de la camara
         yaw += speedH * Input.GetAxis("Mouse X");
         pitch -= speedV * Input.GetAxis("Mouse Y");
@@ -53,17 +105,21 @@ public class Player : MonoBehaviour
             pitch = limitUp;
         }
 
-        camera.transform.eulerAngles = new Vector3(pitch, yaw, 0);
+        camera.transform.eulerAngles = new Vector3(pitch, transform.eulerAngles.y, 0);
 
         if (controllable)
         {
-            if(state.Equals(Estado.MOVE))
+            horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis("Vertical");
+
+            //controlar la gravedad
+            float moveY = 0;
+            moveY -= m_gravity * Time.deltaTime;
+
+            if (state.Equals(Estado.MOVE))
             {
-                float horizontal = Input.GetAxis("Horizontal");
-                float vertical = Input.GetAxis("Vertical");
-                //controlar la gravedad
-                float moveY = 0, m_gravity = 10f;
-                moveY -= m_gravity * Time.deltaTime;
+                
+                
 
                 Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
                                 new Vector3(horizontal, moveY, vertical);
@@ -90,6 +146,45 @@ public class Player : MonoBehaviour
                 //posicion del player
                 controller.Move(movement * speed * Time.deltaTime);
             }
+            else
+            {
+                if (Input.GetButton("interactuar"))
+                {
+                    Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
+                                new Vector3(0, moveY, vertical);
+                    if (Mathf.Approximately(vertical, 0))
+                    {
+                        animator.speed = 0;
+                    }
+                    else if (vertical < 0)
+                    {
+                        setAnimation("estirar");
+                        animator.speed = 1;
+                    }
+                    else
+                    {
+                        setAnimation("empujar");
+                        animator.speed = 1;
+                    }
+                    Vector3 moveStep = movement * pushSpeed * Time.deltaTime;
+                    Vector3 objetivo = pushObj.transform.position + moveStep;
+                    if (isGreaterOrEqual(objetivo, limitMin) && !isGreaterOrEqual(objetivo, limitMax))
+                    {
+                        controller.Move(moveStep);
+                        pushObj.MovePosition(objetivo);
+                    }
+                }
+                else
+                {
+                    controllable = false;
+                    setAnimation("parado");
+                    animator.speed = 1;
+                    state = Estado.MOVE;
+                    StartCoroutine(goToStartPos(transform.position, 0.2f));
+                }
+                
+                
+            }
             
         }
 
@@ -100,6 +195,11 @@ public class Player : MonoBehaviour
             barra_cordura.value = cordura;
         }
         recibiendoDano = false;
+    }
+
+    bool isGreaterOrEqual(Vector3 v1, Vector3 v2)
+    {
+        return v1.x >= v2.x && v1.z >= v2.z;
     }
 
     public void recibirDano(Vector3 ePos)
@@ -131,6 +231,31 @@ public class Player : MonoBehaviour
             lastAnimation = animation;
         }
 
+    }
+
+    public void empujar(Vector3 startPos,Rigidbody obj,Vector3 limitMin,Vector3 limitMax,float pushSpeed)
+    {
+        this.limitMin = limitMin;
+        this.limitMax = limitMax;
+        this.pushSpeed = pushSpeed;
+        pushObj = obj;
+        state = Estado.PUSH;
+        controllable = false;
+        setAnimation("empujar");
+        StartCoroutine(goToStartPos(startPos, 0.2f));
+    }
+    IEnumerator goToStartPos(Vector3 pos,float seconds)
+    {
+        float time = 0;
+        Vector3 movement = pos - transform.position;
+        movement.y = 0;
+        while(time < seconds)
+        {
+            time += Time.deltaTime;
+            controller.Move(movement*(Time.deltaTime/seconds));
+            yield return null;
+        }
+        controllable = true;
     }
 
     public void OnVerticalChanged(float v)
