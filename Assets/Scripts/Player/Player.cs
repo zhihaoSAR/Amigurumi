@@ -237,7 +237,7 @@ public class Player : MonoBehaviour
         Vector3 pos = camera.WorldToViewportPoint(ePos);
         if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax && pos.z >= 0)
         {
-            cordura -= 150* Time.deltaTime;
+            cordura -= 50* Time.deltaTime;
             barra_cordura.value = cordura;
             recibiendoDano = true;
             if (cordura <= 0)
