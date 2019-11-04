@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     GameObject obj;
     public float distance;
     Interactuable func;
+    public Text text_Interactuar;
 
     //variable para controlar empujar
     bool limited;
@@ -55,47 +56,54 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        //obtener que ha visto el jugador
-        ray = camera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit, distance))
+        if (state.Equals(Estado.MOVE))
         {
-            obj = hit.collider.gameObject;
-
-            if (obj.CompareTag("KeyObject"))
+            //obtener que ha visto el jugador
+            ray = camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit, distance))
             {
-                if (Input.GetButtonDown("interactuar"))
-                {
-                    if (func == null)
-                    {
-                        func = obj.GetComponent<Interactuable>();
-                    }
-                    
-                    if (func.interactuable())
-                    {
+                obj = hit.collider.gameObject;
 
-                    }
-                    Destroy(obj);
-                }
-            }
-            else if (obj.CompareTag("Interactable"))
-            {
-                if (Input.GetButtonDown("interactuar") && state.Equals(Estado.MOVE))
+                if (obj.CompareTag("KeyObject"))
                 {
-                    if (func == null)
+                    if (Input.GetButtonDown("interactuar"))
                     {
-                        func = obj.GetComponent<Interactuable>();
+                        if (func == null)
+                        {
+                            func = obj.GetComponent<Interactuable>();
+                        }
+
+                        if (func.interactuable())
+                        {
+
+                        }
+                        Destroy(obj);
                     }
-                    //calcular donde empieza a empujar
-                    Vector3 dir = (hit.point - transform.position).normalized;
-                    startPos =hit.point -dir ;
-                    func.OnInteraction();
                 }
+                else if (obj.CompareTag("Interactable"))
+                {
+                    text_Interactuar.enabled = true;
+                    if (Input.GetButtonDown("interactuar") && state.Equals(Estado.MOVE))
+                    {
+                        if (func == null)
+                        {
+                            func = obj.GetComponent<Interactuable>();
+                        }
+                        //calcular donde empieza a empujar
+                        Vector3 dir = (hit.point - transform.position).normalized;
+                        startPos = hit.point - dir;
+                        func.OnInteraction();
+                    }
+                }
+
             }
             else
             {
                 func = null;
+                text_Interactuar.enabled = false;
             }
         }
+        
 
 
 
@@ -237,7 +245,7 @@ public class Player : MonoBehaviour
         Vector3 pos = camera.WorldToViewportPoint(ePos);
         if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax && pos.z >= 0)
         {
-            cordura -= 50* Time.deltaTime;
+            cordura -= 150* Time.deltaTime;
             barra_cordura.value = cordura;
             recibiendoDano = true;
             if (cordura <= 0)
