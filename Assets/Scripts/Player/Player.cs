@@ -168,7 +168,7 @@ public class Player : MonoBehaviour
                     }
                     else if (vertical < 0)
                     {
-                        setAnimation("estirar");
+                        setAnimation("tirar");
                         animator.speed = 1;
                     }
                     else
