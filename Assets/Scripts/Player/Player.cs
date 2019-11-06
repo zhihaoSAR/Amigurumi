@@ -16,10 +16,11 @@ public class Player : MonoBehaviour
     // mover
     public float speed, runSpeed;
     float horizontal, vertical, m_gravity = 10f;
-    private CharacterController controller;
+    private Rigidbody controller;
     public bool controllable = true;
     string lastAnimation = "parado";
     public Animator animator;
+    CapsuleCollider collider;
     
 
     //moverCamara
@@ -49,7 +50,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        controller = GetComponent<Rigidbody>();
+        collider = GetComponent<CapsuleCollider>();
     }
 
 
@@ -122,6 +124,8 @@ public class Player : MonoBehaviour
             float moveY = 0;
             moveY -= m_gravity * Time.deltaTime;
 
+
+            //comprobar estado
             if (state.Equals(Estado.MOVE))
             {
                 
@@ -153,7 +157,7 @@ public class Player : MonoBehaviour
                 transform.eulerAngles = new Vector3(0, yaw, 0);
 
                 //posicion del player
-                controller.Move(movement * speed * Time.deltaTime);
+                controller.MovePosition(controller.position + movement * speed * Time.deltaTime);
             }
             else
             {
@@ -202,7 +206,7 @@ public class Player : MonoBehaviour
 
                     Vector3 lastPosicion = pushObj.position;
                     pushObj.MovePosition(objetivo);
-                    controller.Move(pushObj.position - lastPosicion);
+                    controller.MovePosition(controller.position + pushObj.position - lastPosicion);
                 }
                 else
                 {
@@ -294,7 +298,7 @@ public class Player : MonoBehaviour
         while(time < seconds)
         {
             time += Time.deltaTime;
-            controller.Move(movement*(Time.deltaTime/seconds));
+            controller.MovePosition(controller.position + movement *(Time.deltaTime/seconds));
             yield return null;
         }
         controllable = true;
@@ -307,5 +311,20 @@ public class Player : MonoBehaviour
     public void OnHorizontalChanged(float v)
     {
         speedH = v;
+    }
+
+    //0: gater 1: en pie
+    void setCollider(int forma)
+    {
+        if(forma == 1)
+        {
+            collider.center.Set(0.05f, -2.6f, 0.05f);
+            collider.direction = 1; //Y
+        }
+        else
+        {
+            collider.center.Set(0.05f, -3.9f, 1.5f);
+            collider.direction = 2; //Z
+        }
     }
 }
