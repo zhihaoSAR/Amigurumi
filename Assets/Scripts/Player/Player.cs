@@ -91,7 +91,8 @@ public class Player : MonoBehaviour
                         }
                         //calcular donde empieza a empujar
                         Vector3 dir = (hit.point - transform.position).normalized;
-                        startPos = hit.point - dir;
+                        startPos = hit.point - dir*2f;
+                        startPos.y = transform.position.y;
                         func.OnInteraction();
                     }
                 }
@@ -334,6 +335,11 @@ public class Player : MonoBehaviour
         
         this.pushSpeed = pushSpeed;
         pushObj = obj;
+        if (!enPie)
+        {
+            enPie = true;
+            ponerEnPie(true);
+        }
         
         state = Estado.PUSH;
         setAnimation("enPie","empujar");
