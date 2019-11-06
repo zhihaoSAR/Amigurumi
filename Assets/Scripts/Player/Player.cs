@@ -18,9 +18,9 @@ public class Player : MonoBehaviour
     float horizontal, vertical, m_gravity = 10f;
     private CharacterController controller;
     public bool controllable = true;
-    string lastAnimation = "parado";
+    string lastAnimation = null,lastNivel = "parado";
     public Animator animator;
-    
+    bool enPie = false;
 
     //moverCamara
     public float speedH, speedV, //variable que controla la sensibilidad
@@ -122,40 +122,71 @@ public class Player : MonoBehaviour
             float moveY = 0;
             moveY -= m_gravity * Time.deltaTime;
 
+
+            //comprobar estado
             if (state.Equals(Estado.MOVE))
             {
-                
-                
+
 
                 Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
                                 new Vector3(horizontal, moveY, vertical);
+
+
+                if (Input.GetButton("correr"))
+                {
+                    if (!enPie)
+                    {
+                        ponerEnPie(true);
+                    }
+                    enPie = true;
+                }
+                else
+                {
+                    if (enPie)
+                    {
+                        ponerEnPie(false);
+                    }
+                    enPie = false;
+
+                }
+
+                
+
                 //si hay movimiento
                 if (!Mathf.Approximately(horizontal, 0) || !Mathf.Approximately(vertical, 0))
                 {
-                    if (Input.GetButton("correr"))
+                    if (enPie)
                     {
-                        setAnimation("caminar");
+                        setAnimation("enPie","caminar");
                         movement *= runSpeed;
                     }
                     else
                     {
-                        setAnimation("gatear");
+                        setAnimation("parado","gatear");
                     }
 
                 }
                 else
                 {
-                    setAnimation("parado");
+                    if (enPie)
+                    {
+                        setAnimation("enPie", null);
+                    }
+                    else
+                    {
+                        setAnimation("parado", null);
+                    }
+                    
                 }
                 //rotacion del player
                 
                 camera.transform.eulerAngles = new Vector3(pitch, transform.eulerAngles.y, 0);
-                transform.eulerAngles = new Vector3(0, yaw, 0);
+                transform.eulerAngles=new Vector3(0, yaw, 0);
 
                 //posicion del player
                 controller.Move(movement * speed * Time.deltaTime);
             }
-            else
+            else if(state.Equals(Estado.PUSH))
             {
                 camera.transform.eulerAngles = new Vector3(pitch, yaw, 0);
                 if (Input.GetButton("interactuar"))
@@ -168,12 +199,12 @@ public class Player : MonoBehaviour
                     }
                     else if (vertical < 0)
                     {
-                        setAnimation("estirar");
+                        setAnimation("enPie","tirar");
                         animator.speed = 1;
                     }
                     else
                     {
-                        setAnimation("empujar");
+                        setAnimation("enPie","empujar");
                         animator.speed = 1;
                     }
                     Vector3 moveStep = movement * pushSpeed * Time.deltaTime;
@@ -207,10 +238,10 @@ public class Player : MonoBehaviour
                 else
                 {
                     controllable = false;
-                    setAnimation("parado");
+                    setAnimation("parado",null);
                     animator.speed = 1;
                     state = Estado.MOVE;
-                    StartCoroutine(goToStartPos(transform.position, 0.2f));
+                    StartCoroutine(goToStartPos(0.2f,transform.position));
                 }
                 
                 
@@ -249,17 +280,32 @@ public class Player : MonoBehaviour
     }
 
     //funcion para controlar la animacion
-    public void setAnimation(string animation)
+    public void setAnimation(string nivel,string animation)
     {
-        if (lastAnimation != "parado")
+        if(nivel != lastNivel)
         {
-            animator.SetBool(lastAnimation, false);
+            if (!lastNivel.Equals("parado"))
+            {
+                animator.SetBool(lastNivel, false);
+            }
+            if (!nivel.Equals("parado"))
+            {
+                animator.SetBool(nivel, true);
+            }
         }
-        if (animation != "parado")
+        if (animation != lastAnimation)
         {
-            animator.SetBool(animation, true);
-            lastAnimation = animation;
+            if(lastAnimation != null)
+            {
+                animator.SetBool(lastAnimation, false);
+            }
+            if(animation != null)
+            {
+                animator.SetBool(animation, true);
+            }
         }
+        lastNivel = nivel;
+        lastAnimation = animation;
 
     }
 
@@ -282,23 +328,31 @@ public class Player : MonoBehaviour
         pushObj = obj;
         
         state = Estado.PUSH;
-        controllable = false;
-        setAnimation("empujar");
-        StartCoroutine(goToStartPos(startPos, 0.5f));
+        setAnimation("enPie","empujar");
+        StartCoroutine(goToStartPos( 0.5f, startPos));
     }
-    IEnumerator goToStartPos(Vector3 pos, float seconds)
+    IEnumerator goToStartPos( float seconds, Vector3 pos)
     {
         float time = 0;
-        Vector3 movement = pos - transform.position;
+        controllable = false;
+        Vector3 movement = Vector3.zero;
+        movement = pos - transform.position;
         movement.y = 0;
-        while(time < seconds)
+
+
+
+        while (time < seconds)
         {
             time += Time.deltaTime;
-            controller.Move(movement*(Time.deltaTime/seconds));
+            controller.Move(movement * (Time.deltaTime / seconds));
+
             yield return null;
         }
         controllable = true;
+
+            
     }
+
 
     public void OnVerticalChanged(float v)
     {
@@ -307,5 +361,95 @@ public class Player : MonoBehaviour
     public void OnHorizontalChanged(float v)
     {
         speedH = v;
+    }
+
+    //0: gater 1: en pie
+    void setCollider(int forma)
+    {
+        if(forma == 1)
+        {
+
+            
+            controller.height = 3.5f;
+            controller.center = new Vector3(0, -3f, 0f);
+            
+            
+
+        }
+        else
+        {
+            
+            controller.height = 1.7f;
+            controller.center = new Vector3(0, -3.8f, 3f);
+
+
+        }
+    }
+
+    //true: cambia la formar de idlegatear a idledepie
+    void ponerEnPie(bool enpie)
+    {
+        if (enpie)
+        {
+            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, 3.5f);
+            //controller.Move(deltaPos);
+            setAnimation("enPie", null);
+            StartCoroutine(ponerEnPie(0.4f, 1,deltaPos));
+            
+   
+        }
+        else
+        {
+            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, -3.5f);
+            //controller.Move(deltaPos);
+            setAnimation("parado", null);
+            StartCoroutine(ponerEnPie(0.4f,0,deltaPos));
+
+    
+        }
+    }
+
+    IEnumerator ponerEnPie(float seconds,int forma,Vector3 deltaPos)
+    {
+        controllable = false;
+        float time = 0;
+        Vector3 now,offset;
+        deltaPos.y = -10;
+        //float deltaHeight;
+        if(forma == 0)
+        {
+            controller.height = 1.7f;
+            now = new Vector3(0, -3f, 0f);
+            offset = new Vector3(0, -3.8f, 3f) - now;
+        }
+        else
+        {
+            controller.height = 3.5f;
+            now = new Vector3(0, -3.8f, 3f);
+            offset = new Vector3(0, -3f, 0f) - now;
+        }
+
+        while (time < seconds)
+        {
+            time += Time.deltaTime;
+            float porcion = time / seconds;
+
+            controller.Move(deltaPos * (Time.deltaTime/seconds));
+            //controller.height += deltaHeight * Time.deltaTime;
+            controller.center = now + offset * porcion;
+
+
+            yield return null;
+        }
+        if (forma == 1)
+        {
+            controller.center = new Vector3(0, -3f, 0f);
+        }
+        else
+        {
+            controller.center = new Vector3(0, -3.8f, 3f);
+        }
+
+        controllable = true;
     }
 }
