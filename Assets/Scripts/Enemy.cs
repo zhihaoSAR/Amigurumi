@@ -22,11 +22,11 @@ public class Enemy : MonoBehaviour
 
     void OnWillRenderObject()
     {
-        if (Physics.Raycast(transform.position,player.transform.position- transform.position
+        if (Physics.Raycast(transform.position,player.transform.GetChild(0).GetChild(1).position- transform.position
                             , out hit))
         {
             obj = hit.collider.gameObject;
-
+            Debug.Log(obj);
             if (obj.tag == "Player")
             {
                 
