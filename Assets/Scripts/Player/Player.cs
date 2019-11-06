@@ -241,7 +241,7 @@ public class Player : MonoBehaviour
                     setAnimation("parado",null);
                     animator.speed = 1;
                     state = Estado.MOVE;
-                    StartCoroutine(goToStartPos(transform.position, 0.2f));
+                    StartCoroutine(goToStartPos(0.2f,transform.position));
                 }
                 
                 
@@ -328,23 +328,31 @@ public class Player : MonoBehaviour
         pushObj = obj;
         
         state = Estado.PUSH;
-        controllable = false;
         setAnimation("enPie","empujar");
-        StartCoroutine(goToStartPos(startPos, 0.5f));
+        StartCoroutine(goToStartPos( 0.5f, startPos));
     }
-    IEnumerator goToStartPos(Vector3 pos, float seconds)
+    IEnumerator goToStartPos( float seconds, Vector3 pos)
     {
         float time = 0;
-        Vector3 movement = pos - transform.position;
+        controllable = false;
+        Vector3 movement = Vector3.zero;
+        movement = pos - transform.position;
         movement.y = 0;
-        while(time < seconds)
+
+
+
+        while (time < seconds)
         {
             time += Time.deltaTime;
-            controller.Move(movement *(Time.deltaTime/seconds));
+            controller.Move(movement * (Time.deltaTime / seconds));
+
             yield return null;
         }
         controllable = true;
+
+            
     }
+
 
     public void OnVerticalChanged(float v)
     {
@@ -364,9 +372,8 @@ public class Player : MonoBehaviour
             
             controller.height = 3.5f;
             controller.center = new Vector3(0, -3f, 0f);
-            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, 3.5f);
-            controller.Move(deltaPos);
-
+            
+            
 
         }
         else
@@ -374,25 +381,75 @@ public class Player : MonoBehaviour
             
             controller.height = 1.7f;
             controller.center = new Vector3(0, -3.8f, 3f);
-            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, -3.5f);
-            controller.Move(deltaPos);
-
 
 
         }
     }
+
     //true: cambia la formar de idlegatear a idledepie
     void ponerEnPie(bool enpie)
     {
         if (enpie)
         {
+            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, 3.5f);
+            //controller.Move(deltaPos);
             setAnimation("enPie", null);
-            setCollider(1);
+            StartCoroutine(ponerEnPie(0.4f, 1,deltaPos));
+            
+   
         }
         else
         {
+            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, -3.5f);
+            //controller.Move(deltaPos);
             setAnimation("parado", null);
-            setCollider(0);
+            StartCoroutine(ponerEnPie(0.4f,0,deltaPos));
+
+    
         }
+    }
+
+    IEnumerator ponerEnPie(float seconds,int forma,Vector3 deltaPos)
+    {
+        controllable = false;
+        float time = 0;
+        Vector3 now,offset;
+        deltaPos.y = -10;
+        //float deltaHeight;
+        if(forma == 0)
+        {
+            controller.height = 1.7f;
+            now = new Vector3(0, -3f, 0f);
+            offset = new Vector3(0, -3.8f, 3f) - now;
+        }
+        else
+        {
+            controller.height = 3.5f;
+            now = new Vector3(0, -3.8f, 3f);
+            offset = new Vector3(0, -3f, 0f) - now;
+        }
+
+        while (time < seconds)
+        {
+            time += Time.deltaTime;
+            float porcion = time / seconds;
+
+            controller.Move(deltaPos * (Time.deltaTime/seconds));
+            //controller.height += deltaHeight * Time.deltaTime;
+            controller.center = now + offset * porcion;
+
+
+            yield return null;
+        }
+        if (forma == 1)
+        {
+            controller.center = new Vector3(0, -3f, 0f);
+        }
+        else
+        {
+            controller.center = new Vector3(0, -3.8f, 3f);
+        }
+
+        controllable = true;
     }
 }
