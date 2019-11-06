@@ -1,5 +1,5 @@
 ﻿
     public enum Estado
     {
-    MOVE,PUSH
+    MOVE,PUSH,RUN
     }
