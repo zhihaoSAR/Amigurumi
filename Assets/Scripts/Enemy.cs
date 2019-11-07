@@ -8,10 +8,12 @@ public class Enemy : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     GameObject obj;
+    Camera camera;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        camera = Camera.main;
     }
 
     // Update is called once per frame
@@ -22,11 +24,10 @@ public class Enemy : MonoBehaviour
 
     void OnWillRenderObject()
     {
-        if (Physics.Raycast(transform.position,player.transform.GetChild(0).GetChild(1).position- transform.position
+        if (Physics.Raycast(transform.position,player.myPos.position- transform.position
                             , out hit))
         {
             obj = hit.collider.gameObject;
-            Debug.Log(obj);
             if (obj.tag == "Player")
             {
                 
