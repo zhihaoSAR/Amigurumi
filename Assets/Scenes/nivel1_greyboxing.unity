@@ -1807,6 +1807,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912826167}
   m_CullTransparentMesh: 0
+--- !u!4 &939757981 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6675565364887878214, guid: b6d7ecb0255839548814ea1309fcb58d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1904863692}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &956076563
 GameObject:
   m_ObjectHideFlags: 0
@@ -4517,7 +4523,7 @@ PrefabInstance:
     - target: {fileID: 5905464774925920773, guid: b6d7ecb0255839548814ea1309fcb58d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.28
+      value: -11.55
       objectReference: {fileID: 0}
     - target: {fileID: 5905464774925920773, guid: b6d7ecb0255839548814ea1309fcb58d,
         type: 3}
@@ -4599,6 +4605,11 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 769811431}
+    - target: {fileID: 5905464774925920772, guid: b6d7ecb0255839548814ea1309fcb58d,
+        type: 3}
+      propertyPath: myPos
+      value: 
+      objectReference: {fileID: 939757981}
     - target: {fileID: 5905464774925920774, guid: b6d7ecb0255839548814ea1309fcb58d,
         type: 3}
       propertyPath: m_Center.y
@@ -4643,6 +4654,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2290335241793444756, guid: b6d7ecb0255839548814ea1309fcb58d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8161336185574962926, guid: b6d7ecb0255839548814ea1309fcb58d,
         type: 3}
