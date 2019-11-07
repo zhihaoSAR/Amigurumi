@@ -369,13 +369,13 @@ public class Player : MonoBehaviour
     }
 
 
-    public void OnVerticalChanged(float v)
+    public void OnVerticalChanged(float value)
     {
-        speedV = v;
+        speedV = value;
     }
-    public void OnHorizontalChanged(float v)
+    public void OnHorizontalChanged(float value)
     {
-        speedH = v;
+        speedH = value;
     }
 
     //0: gater 1: en pie
