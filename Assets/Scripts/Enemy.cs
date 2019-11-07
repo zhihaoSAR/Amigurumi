@@ -13,10 +13,12 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent;
 
     public float distance;
+    Camera camera;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        camera = Camera.main;
     }
 
     // Update is called once per frame
@@ -35,11 +37,10 @@ public class Enemy : MonoBehaviour
 
     void OnWillRenderObject()
     {
-        if (Physics.Raycast(transform.position, player.transform.position - transform.position
+        if (Physics.Raycast(transform.position,player.myPos.position- transform.position
                             , out hit))
         {
             obj = hit.collider.gameObject;
-
             if (obj.tag == "Player")
             {
 
