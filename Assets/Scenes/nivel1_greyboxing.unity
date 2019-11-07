@@ -787,6 +787,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116a3bcab126bab469877dad3a72bb28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  agent: {fileID: 0}
+  distance: 0
 --- !u!65 &301057770
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2150,6 +2153,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116a3bcab126bab469877dad3a72bb28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Target: {fileID: 0}
+  agent: {fileID: 0}
+  distance: 0
 --- !u!1 &595662978
 GameObject:
   m_ObjectHideFlags: 0
@@ -4827,7 +4833,7 @@ Transform:
   m_LocalPosition: {x: 25.6, y: -12.8, z: -35.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5006512736432823004}
+  - {fileID: 7423974220730301565}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4896,6 +4902,7 @@ MonoBehaviour:
   limitUp: 50
   limitDown: -50
   distance: 3
+  text_Interactuar: {fileID: 0}
   hMin: 0.2
   hMax: 0.8
   wMin: 0.2
@@ -5811,6 +5818,43 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &1845250224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845250222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 116a3bcab126bab469877dad3a72bb28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 1605026959}
+  agent: {fileID: 1845250225}
+  distance: 0
+--- !u!195 &1845250225
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845250222}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 2
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!136 &1845250226
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6384,6 +6428,7 @@ MonoBehaviour:
   limitUp: 50
   limitDown: -50
   distance: 3
+  text_Interactuar: {fileID: 0}
   hMin: 0.2
   hMax: 0.8
   wMin: 0.2
@@ -6678,12 +6723,6 @@ Animator:
     type: 3}
   m_PrefabInstance: {fileID: 7423974220730301564}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &5006512736432823004 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2485413009154205344, guid: 960220a56eb6ad948900cffdcfa92e48,
-    type: 3}
-  m_PrefabInstance: {fileID: 7423974220730301564}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7423974220730301564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6691,11 +6730,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1605026960}
     m_Modifications:
-    - target: {fileID: 1452037244605142195, guid: 960220a56eb6ad948900cffdcfa92e48,
-        type: 3}
-      propertyPath: m_Name
-      value: bebe
-      objectReference: {fileID: 0}
     - target: {fileID: 8566988295798341869, guid: 960220a56eb6ad948900cffdcfa92e48,
         type: 3}
       propertyPath: m_TagString
@@ -6776,6 +6810,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1452037244605142195, guid: 960220a56eb6ad948900cffdcfa92e48,
+        type: 3}
+      propertyPath: m_Name
+      value: bebe
+      objectReference: {fileID: 0}
     - target: {fileID: 2253146275154577185, guid: 960220a56eb6ad948900cffdcfa92e48,
         type: 3}
       propertyPath: m_SkinnedMotionVectors
@@ -6848,6 +6887,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 960220a56eb6ad948900cffdcfa92e48, type: 3}
+--- !u!4 &7423974220730301565 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 7423974220730301564}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7877066524503938369
 PrefabInstance:
   m_ObjectHideFlags: 0
