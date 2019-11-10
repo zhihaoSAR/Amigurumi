@@ -37,7 +37,7 @@ public class MainControl : MonoBehaviour
     void Start()
     {
         text_Interacturar.text = button["interactuar"].ToUpper() + " Interactuar";
-
+        text_Interacturar.enabled = false;
     }
 
 }

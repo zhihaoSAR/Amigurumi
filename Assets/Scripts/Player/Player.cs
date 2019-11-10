@@ -67,35 +67,49 @@ public class Player : MonoBehaviour
 
                 if (obj.CompareTag("KeyObject"))
                 {
-                    if (Input.GetButtonDown("interactuar"))
+                    if (func == null)
                     {
-                        if (func == null)
-                        {
-                            func = obj.GetComponent<Interactuable>();
-                        }
-
-                        if (func.interactuable())
-                        {
-
-                        }
-                        Destroy(obj);
+                        func = obj.GetComponent<Interactuable>();
                     }
+
+                    if (func.interactuable(hit))
+                    {
+                        if (Input.GetButtonDown("interactuar"))
+                        {
+
+                        }
+                    }
+                    Destroy(obj);
+                    
                 }
                 else if (obj.CompareTag("Interactable"))
                 {
-                    text_Interactuar.enabled = true;
-                    if (Input.GetButtonDown("interactuar") && state.Equals(Estado.MOVE))
+                    if (func == null)
                     {
-                        if (func == null)
-                        {
-                            func = obj.GetComponent<Interactuable>();
-                        }
-                        //calcular donde empieza a empujar
-                        Vector3 dir = (hit.point - transform.position).normalized;
-                        startPos = hit.point - dir*2f;
-                        startPos.y = transform.position.y;
-                        func.OnInteraction();
+                        func = obj.GetComponent<Interactuable>();
                     }
+
+                    if (func.interactuable(hit))
+                    {
+                        text_Interactuar.enabled = true;
+                        if (Input.GetButtonDown("interactuar") && state.Equals(Estado.MOVE))
+                        {
+                            if (func == null)
+                            {
+                                func = obj.GetComponent<Interactuable>();
+                            }
+                            //calcular donde empieza a empujar
+                            Vector3 dir = (hit.point - transform.position).normalized;
+                            startPos = hit.point - dir * 2f;
+                            startPos.y = transform.position.y;
+                            func.OnInteraction();
+                        }
+                    }
+                    else
+                    {
+                        text_Interactuar.enabled = false;
+                    }
+                    
                 }
 
             }

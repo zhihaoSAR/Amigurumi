@@ -6,5 +6,5 @@ public interface Interactuable
 {
     void OnInteraction();
     bool subible();
-    bool interactuable();
+    bool interactuable(RaycastHit hit);
 }
