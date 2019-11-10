@@ -54,8 +54,7 @@ public class Player : MonoBehaviour
         controller = GetComponent<CharacterController>();
     }
 
-
-    void FixedUpdate()
+    void Update()
     {
         if (state.Equals(Estado.MOVE))
         {
@@ -80,7 +79,7 @@ public class Player : MonoBehaviour
                         }
                     }
                     Destroy(obj);
-                    
+
                 }
                 else if (obj.CompareTag("Interactable"))
                 {
@@ -99,7 +98,8 @@ public class Player : MonoBehaviour
                                 func = obj.GetComponent<Interactuable>();
                             }
                             //calcular donde empieza a empujar
-                            Vector3 dir = (hit.point - transform.position).normalized;
+
+                            Vector3 dir = ray.direction.normalized;
                             startPos = hit.point - dir * 2f;
                             startPos.y = transform.position.y;
                             func.OnInteraction();
@@ -109,7 +109,7 @@ public class Player : MonoBehaviour
                     {
                         text_Interactuar.enabled = false;
                     }
-                    
+
                 }
 
             }
@@ -119,8 +119,10 @@ public class Player : MonoBehaviour
                 text_Interactuar.enabled = false;
             }
         }
-        
+    }
 
+    void FixedUpdate()
+    {
 
 
         //controlar la rotacion de la camara
@@ -134,8 +136,6 @@ public class Player : MonoBehaviour
         {
             pitch = limitUp;
         }
-        
-        
 
         if (controllable)
         {
@@ -239,11 +239,11 @@ public class Player : MonoBehaviour
                         moveStep = Vector3.Project(moveStep, rail);
                         
                         objetivo = pushObj.position + moveStep;
-                        if (isGreaterOrEqual(objetivo, limitMax))
+                        if (Utility.isGreaterOrEqual(limitMax,limitMin,objetivo) == 1)
                         {
                             objetivo = limitMax;
                         }
-                        else if (isGreaterOrEqual(limitMin, objetivo))
+                        else if (Utility.isGreaterOrEqual(limitMax,limitMin,objetivo) == 2)
                         {
                             objetivo = limitMin;
                         }
@@ -282,10 +282,7 @@ public class Player : MonoBehaviour
         recibiendoDano = false;
     }
 
-    bool isGreaterOrEqual(Vector3 v1, Vector3 v2)
-    {
-        return v1.x >= v2.x && v1.z >= v2.z;
-    }
+    
 
     public void recibirDano(Vector3 ePos)
     {
@@ -350,6 +347,7 @@ public class Player : MonoBehaviour
         
         this.pushSpeed = pushSpeed;
         pushObj = obj;
+
         if (!enPie)
         {
             enPie = true;
@@ -366,7 +364,7 @@ public class Player : MonoBehaviour
         controllable = false;
         Vector3 movement = Vector3.zero;
         movement = pos - transform.position;
-        movement.y = 0;
+        movement.y = -m_gravity;
 
 
 
@@ -377,6 +375,9 @@ public class Player : MonoBehaviour
 
             yield return null;
         }
+        movement = pos - transform.position;
+        movement.y = -m_gravity;
+        controller.Move(movement);
         controllable = true;
 
             
