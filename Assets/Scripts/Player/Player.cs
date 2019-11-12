@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     // mover
     public float speed, runSpeed;
-    float horizontal, vertical, m_gravity = 10f;
+    float horizontal, vertical, m_gravity = 50f;
     private CharacterController controller;
     public bool controllable = true;
     string lastAnimation = null,lastNivel = "parado";
@@ -34,14 +34,17 @@ public class Player : MonoBehaviour
     GameObject obj;
     public float distance;
     Interactuable func;
-    public Text text_Interactuar;
+    public Text text_Interactuar,text_Subir;
 
     //variable para controlar empujar
     bool limited;
     Vector3 rail,limitMin,limitMax; 
     float pushSpeed;
     Rigidbody pushObj;
-    Vector3 startPos;
+
+    //variable global para controlar animacion
+    float time,seconds;
+    bool isAnimating = false;
 
     //valor entre 0-1
     //si el amigurumi esta dentro de (wMin,hMin) (wMax,hMax) recibe dano
@@ -56,70 +59,80 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (state.Equals(Estado.MOVE))
+        //obtener que ha visto el jugador
+        ray = camera.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit, distance))
         {
-            //obtener que ha visto el jugador
-            ray = camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, distance))
+            obj = hit.collider.gameObject;
+
+            if (obj.CompareTag("KeyObject"))
             {
-                obj = hit.collider.gameObject;
-
-                if (obj.CompareTag("KeyObject"))
+                if (func == null)
                 {
-                    if (func == null)
-                    {
-                        func = obj.GetComponent<Interactuable>();
-                    }
-
-                    if (func.interactuable(hit))
-                    {
-                        if (Input.GetButtonDown("interactuar"))
-                        {
-
-                        }
-                    }
-                    Destroy(obj);
-
-                }
-                else if (obj.CompareTag("Interactable"))
-                {
-                    if (func == null)
-                    {
-                        func = obj.GetComponent<Interactuable>();
-                    }
-
-                    if (func.interactuable(hit))
-                    {
-                        text_Interactuar.enabled = true;
-                        if (Input.GetButtonDown("interactuar") && state.Equals(Estado.MOVE))
-                        {
-                            if (func == null)
-                            {
-                                func = obj.GetComponent<Interactuable>();
-                            }
-                            //calcular donde empieza a empujar
-
-                            Vector3 dir = ray.direction.normalized;
-                            startPos = hit.point - dir * 2f;
-                            startPos.y = transform.position.y;
-                            func.OnInteraction();
-                        }
-                    }
-                    else
-                    {
-                        text_Interactuar.enabled = false;
-                    }
-
+                    func = obj.GetComponent<Interactuable>();
                 }
 
+                if (func.interactuable(hit))
+                {
+                    if (Input.GetButtonDown("interactuar"))
+                    {
+
+                    }
+                }
+                Destroy(obj);
+
             }
-            else
+            else if (obj.CompareTag("Interactable"))
             {
-                func = null;
-                text_Interactuar.enabled = false;
+                if (func == null)
+                {
+                    func = obj.GetComponent<Interactuable>();
+                }
+
+                if (func.interactuable(hit))
+                {
+                    text_Interactuar.enabled = true;
+                    if (Input.GetButtonDown("interactuar") && state.Equals(Estado.MOVE) && controllable)
+                    {
+                        //calcular donde empieza a empujar
+
+                        
+                        func.OnInteraction(ray,hit,0);
+                    }
+                }
+                else
+                {
+                    text_Interactuar.enabled = false;
+                }
+                if (func.subible(hit))
+                {
+                    text_Subir.enabled = true;
+                    if (Input.GetButtonDown("subir") && state.Equals(Estado.MOVE) && controllable)
+                    {
+                        //calcular donde empieza a empujar
+
+                        
+                        func.OnInteraction(ray, hit, 1);
+                    }
+                }
+                else
+                {
+                    text_Subir.enabled = false;
+                }
+
+
             }
+
         }
-    }
+        else
+        {
+            func = null;
+            text_Interactuar.enabled = false;
+            text_Subir.enabled = false;
+        }
+    
+
+}
 
     void FixedUpdate()
     {
@@ -265,7 +278,7 @@ public class Player : MonoBehaviour
                     setAnimation("parado",null);
                     animator.speed = 1;
                     state = Estado.MOVE;
-                    StartCoroutine(goToStartPos(0.2f,transform.position));
+                    StartCoroutine(PreparePush(0.2f,transform.position));
                 }
                 
                 
@@ -330,7 +343,7 @@ public class Player : MonoBehaviour
 
     }
 
-    public void empujar(Rigidbody obj,Transform limitMin,Transform limitMax,float pushSpeed)
+    public void empujar(Rigidbody obj,Transform limitMin,Transform limitMax,float pushSpeed,Vector3 startPos)
     {
         if(limitMax)
         {
@@ -356,11 +369,17 @@ public class Player : MonoBehaviour
         
         state = Estado.PUSH;
         setAnimation("enPie","empujar");
-        StartCoroutine(goToStartPos( 0.5f, startPos));
+        StartCoroutine(PreparePush( 0.5f, startPos));
     }
-    IEnumerator goToStartPos( float seconds, Vector3 pos)
+    IEnumerator PreparePush( float seconds, Vector3 pos)
     {
-        float time = 0;
+        while(isAnimating)
+        {
+            yield return new WaitForSeconds(this.seconds - time);
+        }
+        isAnimating = true;
+        time = 0;
+        this.seconds = seconds;
         controllable = false;
         Vector3 movement = Vector3.zero;
         movement = pos - transform.position;
@@ -379,9 +398,63 @@ public class Player : MonoBehaviour
         movement.y = -m_gravity;
         controller.Move(movement);
         controllable = true;
-
-            
+        isAnimating = false;
     }
+    public void saltar(Rigidbody obj, Vector3 startPos,Vector3 endPos)
+    {
+
+        if (!enPie)
+        {
+            enPie = true;
+            ponerEnPie(true);
+        }
+
+        setAnimation("enPie", null);
+        StartCoroutine(subir(1f, startPos,endPos));
+    }
+
+    IEnumerator subir(float seconds, Vector3 startPos,Vector3 endPos)
+    {
+        while (isAnimating)
+        {
+            yield return null;
+        }
+        isAnimating = true;
+        time = 0;
+        this.seconds = seconds;
+        controllable = false;
+        Vector3 movement = Vector3.zero;
+        movement = startPos - transform.position;
+        movement.y -= 1f;
+        animator.SetTrigger("subir");
+        while (time < 0.5)
+        {
+            time += Time.deltaTime;
+            controller.Move(movement * (Time.deltaTime / 0.5f));
+
+            yield return null;
+        }
+        
+        movement = Vector3.zero;
+        movement = endPos;
+        movement.y = 1f;
+        time = 0;
+        seconds -= 0.5f;
+        while (time < seconds)
+        {
+            time += Time.deltaTime;
+            controller.Move(movement * (Time.deltaTime / seconds));
+
+            yield return null;
+        }
+        //movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) * movement;
+        movement.y = 0;
+        movement *= 0.3f;
+        controller.Move(movement);
+        controllable = true;
+        isAnimating = false;
+    }
+
 
 
     public void OnVerticalChanged(float value)
@@ -419,6 +492,7 @@ public class Player : MonoBehaviour
     //true: cambia la formar de idlegatear a idledepie
     void ponerEnPie(bool enpie)
     {
+
         if (enpie)
         {
             Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, 1.8f);
@@ -441,8 +515,14 @@ public class Player : MonoBehaviour
 
     IEnumerator ponerEnPie(float seconds,int forma,Vector3 deltaPos)
     {
+        while (isAnimating)
+        {
+            yield return new WaitForSeconds(this.seconds - time);
+        }
+        isAnimating = true;
+        time = 0;
+        this.seconds = seconds;
         controllable = false;
-        float time = 0;
         Vector3 now,offset;
         deltaPos.y = -m_gravity;
         //float deltaHeight;
@@ -481,5 +561,6 @@ public class Player : MonoBehaviour
         }
 
         controllable = true;
+        isAnimating = false;
     }
 }

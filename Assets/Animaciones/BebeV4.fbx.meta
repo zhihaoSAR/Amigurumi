@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bbaed6ed52f7c4d458d1da0cf9aa546e
+guid: 636b8e0aeda3c1044a6338185104c6f2
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable:
@@ -67,7 +67,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -88,15 +88,15 @@ ModelImporter:
       name: RigBebe|empujar
       takeName: RigBebe|empujar
       internalID: -2990957875664385734
-      firstFrame: 28
-      lastFrame: 101
+      firstFrame: 0
+      lastFrame: 119.00001
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -125,7 +125,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -147,14 +147,14 @@ ModelImporter:
       takeName: RigBebe|idle de pie
       internalID: 1626439769111747613
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 60.000004
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -183,8 +183,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -270,7 +270,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0

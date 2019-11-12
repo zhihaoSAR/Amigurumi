@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface Interactuable 
 {
-    void OnInteraction();
-    bool subible();
+    void OnInteraction(Ray ray, RaycastHit hit,int control);
+    bool subible(RaycastHit hit);
     bool interactuable(RaycastHit hit);
 }

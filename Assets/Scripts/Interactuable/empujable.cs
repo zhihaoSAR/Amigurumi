@@ -15,9 +15,16 @@ public class empujable : MonoBehaviour , Interactuable
     }
 
 
-    public void OnInteraction()
+    public void OnInteraction(Ray ray, RaycastHit hit, int control)
     {
-        player.empujar(myBody, null, null,speed);
+        
+        Vector3 dir = ray.direction.normalized;
+        Vector3 startPos;
+
+        startPos = hit.point - dir;
+        startPos.y = transform.position.y;
+
+        player.empujar(myBody, null, null,speed,startPos);
     }
 
     bool Interactuable.interactuable(RaycastHit hit)
@@ -25,7 +32,7 @@ public class empujable : MonoBehaviour , Interactuable
         return true;
     }
 
-    bool Interactuable.subible()
+    bool Interactuable.subible(RaycastHit hit)
     {
         return false;
     }

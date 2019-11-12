@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MainControl : MonoBehaviour
 {
     Dictionary<string, string> button = new Dictionary<string, string>();
-    public Text text_Interacturar;
+    public Text text_Interacturar,text_Subir;
     void Awake()
     {
         var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
@@ -37,6 +37,8 @@ public class MainControl : MonoBehaviour
     void Start()
     {
         text_Interacturar.text = button["interactuar"].ToUpper() + " Interactuar";
+        text_Subir.text = button["subir"].ToUpper() + " Subir";
+        
     }
 
 }
