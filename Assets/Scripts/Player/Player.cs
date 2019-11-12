@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public Slider barra_cordura; // slider del ui para mostrar la cantidad de cordura
     private bool recibiendoDano = false;
     public Camera camera;
+    public Transform myPos;
 
     // mover
     public float speed, runSpeed;
@@ -91,7 +92,8 @@ public class Player : MonoBehaviour
                         }
                         //calcular donde empieza a empujar
                         Vector3 dir = (hit.point - transform.position).normalized;
-                        startPos = hit.point - dir;
+                        startPos = hit.point - dir*2f;
+                        startPos.y = transform.position.y;
                         func.OnInteraction();
                     }
                 }
@@ -334,6 +336,11 @@ public class Player : MonoBehaviour
         
         this.pushSpeed = pushSpeed;
         pushObj = obj;
+        if (!enPie)
+        {
+            enPie = true;
+            ponerEnPie(true);
+        }
         
         state = Estado.PUSH;
         setAnimation("enPie","empujar");
@@ -362,13 +369,13 @@ public class Player : MonoBehaviour
     }
 
 
-    public void OnVerticalChanged(float v)
+    public void OnVerticalChanged(float value)
     {
-        speedV = v;
+        speedV = value;
     }
-    public void OnHorizontalChanged(float v)
+    public void OnHorizontalChanged(float value)
     {
-        speedH = v;
+        speedH = value;
     }
 
     //0: gater 1: en pie
@@ -399,19 +406,19 @@ public class Player : MonoBehaviour
     {
         if (enpie)
         {
-            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, 3.5f);
+            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, 1.8f);
             //controller.Move(deltaPos);
             setAnimation("enPie", null);
-            StartCoroutine(ponerEnPie(0.4f, 1,deltaPos));
+            StartCoroutine(ponerEnPie(0.5f, 1,deltaPos));
             
    
         }
         else
         {
-            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, -3.5f);
+            Vector3 deltaPos = Quaternion.Euler(0, transform.eulerAngles.y, 0) * new Vector3(0, 0, -1.8f);
             //controller.Move(deltaPos);
             setAnimation("parado", null);
-            StartCoroutine(ponerEnPie(0.4f,0,deltaPos));
+            StartCoroutine(ponerEnPie(0.5f,0,deltaPos));
 
     
         }
@@ -426,15 +433,15 @@ public class Player : MonoBehaviour
         //float deltaHeight;
         if(forma == 0)
         {
-            controller.height = 1.7f;
-            now = new Vector3(0, -3f, 0f);
-            offset = new Vector3(0, -3.8f, 3f) - now;
+            controller.height = 1f;
+            now = new Vector3(0,1.2f,0.1f);
+            offset = new Vector3(0,0.4f,1.8f) - now;
         }
         else
         {
-            controller.height = 3.5f;
-            now = new Vector3(0, -3.8f, 3f);
-            offset = new Vector3(0, -3f, 0f) - now;
+            controller.height = 2.5f;
+            now = new Vector3(0, 0.4f, 1.8f);
+            offset = new Vector3(0, 1.2f, 0.1f) - now;
         }
 
         while (time < seconds)
@@ -451,11 +458,11 @@ public class Player : MonoBehaviour
         }
         if (forma == 1)
         {
-            controller.center = new Vector3(0, -3f, 0f);
+            controller.center = new Vector3(0, 1.2f, 0.1f);
         }
         else
         {
-            controller.center = new Vector3(0, -3.8f, 3f);
+            controller.center = new Vector3(0, 0.4f, 1.8f);
         }
 
         controllable = true;
