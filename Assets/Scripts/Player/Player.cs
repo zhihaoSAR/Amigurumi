@@ -444,7 +444,7 @@ public class Player : MonoBehaviour
         controllable = false;
         float time = 0;
         Vector3 now,offset;
-        deltaPos.y = -10;
+        deltaPos.y = -m_gravity;
         //float deltaHeight;
         if(forma == 0)
         {

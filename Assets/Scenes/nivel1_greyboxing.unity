@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 584235339}
   m_IndirectSpecularColor: {r: 0.00337089, g: 0.0031657508, b: 0.08510926, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -49,7 +49,7 @@ LightmapSettings:
     serializedVersion: 2
     m_BounceScale: 1
     m_IndirectOutputScale: 1
-    m_AlbedoBoost: 1.05
+    m_AlbedoBoost: 1.3
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
@@ -60,19 +60,19 @@ LightmapSettings:
     m_AtlasSize: 512
     m_AO: 1
     m_AOMaxDistance: 1
-    m_CompAOExponent: 1.06
-    m_CompAOExponentDirect: 1.02
+    m_CompAOExponent: 1.5
+    m_CompAOExponentDirect: 1.5
     m_ExtractAmbientOcclusion: 0
     m_Padding: 2
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
-    m_TextureCompression: 0
+    m_TextureCompression: 1
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
     m_MixedBakeMode: 2
-    m_BakeBackend: 1
+    m_BakeBackend: 0
     m_PVRSampling: 1
     m_PVRDirectSampleCount: 32
     m_PVRSampleCount: 512
@@ -798,6 +798,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 4218895048751850774, guid: 84507eb0ddceda94cb03aae91d78c891, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 84507eb0ddceda94cb03aae91d78c891, type: 3}
+--- !u!108 &584235339 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 4218895048014152779, guid: 84507eb0ddceda94cb03aae91d78c891,
+    type: 3}
+  m_PrefabInstance: {fileID: 584235338}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1080396962 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4218895048260931074, guid: 84507eb0ddceda94cb03aae91d78c891,
