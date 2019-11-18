@@ -101,6 +101,7 @@ public class Player : MonoBehaviour
 
                         
                         func.OnInteraction(ray,hit,0);
+                        touchPos = hit.point;
                     }
                 }
                 else
@@ -113,7 +114,7 @@ public class Player : MonoBehaviour
                     if (Input.GetButtonDown("subir") && state.Equals(Estado.MOVE) && controllable)
                     {
                         func.OnInteraction(ray, hit, 1);
-                        touchPos = hit.point;
+                        
                     }
                 }
                 else
@@ -249,7 +250,7 @@ public class Player : MonoBehaviour
             {
                 camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x + rotationx,
                                                             camera.transform.eulerAngles.y + rotationy, 0);
-                if (Input.GetButton("interactuar") && Vector3.Distance(myPos.position,touchPos) <= 5 )
+                if (Input.GetButton("interactuar") && Vector3.Distance(myPos.position, touchPos) <= 5)
                 {
                     Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
                                 new Vector3(0, moveY, vertical);
