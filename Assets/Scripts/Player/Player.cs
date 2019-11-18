@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     public Slider barra_cordura; // slider del ui para mostrar la cantidad de cordura
     private bool recibiendoDano = false;
     public Camera camera;
+    Animator cameraAnimator;
     public Transform myPos;
 
     // mover
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour
     //moverCamara
     public float speedH, speedV, //variable que controla la sensibilidad
                     limitUp, limitDown; // para controlar limite de la rotacion x 
-    private float yaw = 0, pitch = 0;
+    private float rotationy = 0, rotationx = 0;
 
     //controlar interaccion
     Ray ray;
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour
     public float distance;
     Interactuable func;
     public Text text_Interactuar,text_Subir;
+    Vector3 touchPos;
 
     //variable para controlar empujar
     bool limited;
@@ -55,6 +57,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        cameraAnimator = camera.transform.parent.GetComponent<Animator>();
     }
 
     void Update()
@@ -109,10 +112,8 @@ public class Player : MonoBehaviour
                     text_Subir.enabled = true;
                     if (Input.GetButtonDown("subir") && state.Equals(Estado.MOVE) && controllable)
                     {
-                        //calcular donde empieza a empujar
-
-                        
                         func.OnInteraction(ray, hit, 1);
+                        touchPos = hit.point;
                     }
                 }
                 else
@@ -130,24 +131,43 @@ public class Player : MonoBehaviour
             text_Interactuar.enabled = false;
             text_Subir.enabled = false;
         }
-    
 
-}
+        //recupera corduro cuando no ve amigurumi
+        if (!recibiendoDano)
+        {
+            cordura = cordura >= 995 ? 1000 : cordura + 5;
+            barra_cordura.value = cordura;
+        }
+        recibiendoDano = false;
+        if(enPie)
+        {
+            energia -= 1;
+        }
+        else
+        {
+            energia += 2;
+        }
+
+    }
 
     void FixedUpdate()
     {
 
 
         //controlar la rotacion de la camara
-        yaw += speedH * Input.GetAxis("Mouse X");
-        pitch -= speedV * Input.GetAxis("Mouse Y");
-        if (pitch < limitDown)
+        rotationy = speedH * Input.GetAxis("Mouse X");
+        rotationx = -speedV * Input.GetAxis("Mouse Y");
+        float rotationxNow = camera.transform.eulerAngles.x;
+        if (rotationxNow > 60) rotationxNow -= 360;
+        if (rotationxNow + rotationx < limitDown)
         {
-            pitch = limitDown;
+            Debug.Log(rotationxNow);
+            rotationx = 0;
         }
-        else if (pitch > limitUp)
+        else if (rotationxNow + rotationx > limitUp)
         {
-            pitch = limitUp;
+            Debug.Log(rotationxNow);
+            rotationx = 0;
         }
 
         if (controllable)
@@ -169,7 +189,7 @@ public class Player : MonoBehaviour
                                 new Vector3(horizontal, moveY, vertical);
 
 
-                if (Input.GetButton("correr"))
+                if (Input.GetButton("correr") && energia >= 0)
                 {
                     if (!enPie)
                     {
@@ -195,6 +215,7 @@ public class Player : MonoBehaviour
                     if (enPie)
                     {
                         setAnimation("enPie","caminar");
+                        energia -= 1;
                         movement *= runSpeed;
                     }
                     else
@@ -217,16 +238,18 @@ public class Player : MonoBehaviour
                 }
                 //rotacion del player
                 
-                camera.transform.eulerAngles = new Vector3(pitch, transform.eulerAngles.y, 0);
-                transform.eulerAngles=new Vector3(0, yaw, 0);
+                camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x+rotationx,
+                                                            transform.eulerAngles.y, 0);
+                transform.eulerAngles=new Vector3(0, transform.eulerAngles.y + rotationy, 0);
 
                 //posicion del player
                 controller.Move(movement * speed * Time.deltaTime);
             }
             else if(state.Equals(Estado.PUSH))
             {
-                camera.transform.eulerAngles = new Vector3(pitch, yaw, 0);
-                if (Input.GetButton("interactuar"))
+                camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x + rotationx,
+                                                            camera.transform.eulerAngles.y + rotationy, 0);
+                if (Input.GetButton("interactuar") && Vector3.Distance(myPos.position,touchPos) <= 5 )
                 {
                     Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
                                 new Vector3(0, moveY, vertical);
@@ -270,12 +293,14 @@ public class Player : MonoBehaviour
 
                     Vector3 lastPosicion = pushObj.position;
                     pushObj.MovePosition(objetivo);
-                    controller.Move(pushObj.position - lastPosicion);
+                    movement = pushObj.position - lastPosicion;
+                    movement.y = -m_gravity;
+                    controller.Move(movement);
                 }
                 else
                 {
                     controllable = false;
-                    setAnimation("parado",null);
+                    //setAnimation("parado",null);
                     animator.speed = 1;
                     state = Estado.MOVE;
                     StartCoroutine(PreparePush(0.2f,transform.position));
@@ -286,13 +311,7 @@ public class Player : MonoBehaviour
             
         }
 
-        //recupera corduro cuando no ve amigurumi
-        if (!recibiendoDano)
-        {
-            cordura = cordura >= 995 ? 1000 : cordura+5;
-            barra_cordura.value = cordura;
-        }
-        recibiendoDano = false;
+        
     }
 
     
@@ -321,10 +340,12 @@ public class Player : MonoBehaviour
             if (!lastNivel.Equals("parado"))
             {
                 animator.SetBool(lastNivel, false);
+                cameraAnimator.SetBool(lastNivel, false);
             }
             if (!nivel.Equals("parado"))
             {
                 animator.SetBool(nivel, true);
+                cameraAnimator.SetBool(nivel, true);
             }
         }
         if (animation != lastAnimation)
@@ -475,8 +496,6 @@ public class Player : MonoBehaviour
             
             controller.height = 3.5f;
             controller.center = new Vector3(0, -3f, 0f);
-            
-            
 
         }
         else
