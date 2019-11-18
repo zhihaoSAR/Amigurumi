@@ -947,6 +947,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 111300000, guid: fbcb7c86ebe97454c866d1314a81748f,
         type: 2}
+    - target: {fileID: 4218895048051732237, guid: 84507eb0ddceda94cb03aae91d78c891,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4218895048751850774, guid: 84507eb0ddceda94cb03aae91d78c891, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 84507eb0ddceda94cb03aae91d78c891, type: 3}
@@ -974,7 +979,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4dde95effe50d184fba7d34c8b149744, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -1462,6 +1467,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5049947260224378852, guid: b6d7ecb0255839548814ea1309fcb58d,
+        type: 3}
+      propertyPath: m_Name
+      value: CameraShake
+      objectReference: {fileID: 0}
     - target: {fileID: 2003121335392915394, guid: b6d7ecb0255839548814ea1309fcb58d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1591,11 +1601,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5049947260224378852, guid: b6d7ecb0255839548814ea1309fcb58d,
-        type: 3}
-      propertyPath: m_Name
-      value: CameraShake
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6d7ecb0255839548814ea1309fcb58d, type: 3}
