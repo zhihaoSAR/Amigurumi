@@ -7,10 +7,11 @@ public class Player : MonoBehaviour
 {
     public Estado state = Estado.MOVE;
 
+    MainControl mc;
+
     //player
     public float cordura,energia;
-    public Slider barra_cordura; // slider del ui para mostrar la cantidad de cordura
-    private bool recibiendoDano = false;
+    private bool recibiendoDano = false,gastandoEnergia = false;
     public Camera camera;
     Animator cameraAnimator;
     public Transform myPos;
@@ -35,7 +36,6 @@ public class Player : MonoBehaviour
     GameObject obj;
     public float distance;
     Interactuable func;
-    public Text text_Interactuar,text_Subir;
     Vector3 touchPos;
 
     //variable para controlar empujar
@@ -58,6 +58,7 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         cameraAnimator = camera.transform.parent.GetComponent<Animator>();
+        mc = GameObject.Find("MainControl").GetComponent<MainControl>();
     }
 
     void Update()
@@ -94,7 +95,7 @@ public class Player : MonoBehaviour
 
                 if (func.interactuable(hit))
                 {
-                    text_Interactuar.enabled = true;
+                    mc.setInteractuarVisible(true);
                     if (Input.GetButtonDown("interactuar") && state.Equals(Estado.MOVE) && controllable)
                     {
                         //calcular donde empieza a empujar
@@ -106,11 +107,11 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    text_Interactuar.enabled = false;
+                    mc.setInteractuarVisible(false);
                 }
                 if (func.subible(hit))
                 {
-                    text_Subir.enabled = true;
+                    mc.setSubirVisible(true);
                     if (Input.GetButtonDown("subir") && state.Equals(Estado.MOVE) && controllable)
                     {
                         func.OnInteraction(ray, hit, 1);
@@ -119,7 +120,7 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    text_Subir.enabled = false;
+                    mc.setSubirVisible(false);
                 }
 
 
@@ -129,25 +130,36 @@ public class Player : MonoBehaviour
         else
         {
             func = null;
-            text_Interactuar.enabled = false;
-            text_Subir.enabled = false;
+            mc.setInteractuarVisible(false);
+            mc.setSubirVisible(false);
         }
 
         //recupera corduro cuando no ve amigurumi
-        if (!recibiendoDano)
+        if (recibiendoDano)
         {
-            cordura = cordura >= 995 ? 1000 : cordura + 5;
-            barra_cordura.value = cordura;
-        }
-        recibiendoDano = false;
-        if(enPie)
-        {
-            energia -= 1;
+            cordura -= 150 * Time.deltaTime;
+            if (cordura <= 0)
+            {
+                Debug.Log("GAME OVER");
+            }
         }
         else
         {
-            energia += 2;
+            cordura = cordura >= 995 ? 1000 : cordura + 5;
+            
         }
+        recibiendoDano = false;
+        mc.UpdateCordura(cordura / 1000f);
+
+        if (gastandoEnergia)
+        {
+            energia -= 1;
+            
+        }else
+        {
+            energia = energia >= 498 ? 500 : energia + 2;
+        }
+        mc.UpdateEnergia(energia/500f);
 
     }
 
@@ -162,12 +174,10 @@ public class Player : MonoBehaviour
         if (rotationxNow > 60) rotationxNow -= 360;
         if (rotationxNow + rotationx < limitDown)
         {
-            Debug.Log(rotationxNow);
             rotationx = 0;
         }
         else if (rotationxNow + rotationx > limitUp)
         {
-            Debug.Log(rotationxNow);
             rotationx = 0;
         }
 
@@ -197,6 +207,7 @@ public class Player : MonoBehaviour
                         ponerEnPie(true);
                     }
                     enPie = true;
+                    gastandoEnergia = true;
                 }
                 else
                 {
@@ -205,6 +216,7 @@ public class Player : MonoBehaviour
                         ponerEnPie(false);
                     }
                     enPie = false;
+                    gastandoEnergia = false;
 
                 }
 
@@ -322,13 +334,9 @@ public class Player : MonoBehaviour
         Vector3 pos = camera.WorldToViewportPoint(ePos);
         if (pos.x < wMax && pos.x > wMin && pos.y > hMin && pos.y < hMax && pos.z >= 0)
         {
-            cordura -= 150* Time.deltaTime;
-            barra_cordura.value = cordura;
+            
             recibiendoDano = true;
-            if (cordura <= 0)
-            {
-                Debug.Log("GAME OVER");
-            }
+            
         }
 
     }

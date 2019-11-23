@@ -8,6 +8,12 @@ public class MainControl : MonoBehaviour
 {
     Dictionary<string, string> button = new Dictionary<string, string>();
     public Text text_Interacturar,text_Subir;
+    public Slider barra_cordura , barra_energia;
+    Image corduraFondo,energiaFondo;
+    static bool bajaCordura = false,bajaEnergia = false;
+    static Sprite HighCordura,LowCordura,HighEnergia,LowEnergia;
+
+
     void Awake()
     {
         var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
@@ -33,12 +39,59 @@ public class MainControl : MonoBehaviour
             }
         }
 
+        HighCordura = Resources.Load<Sprite>("fondo_cordura_high");
+        LowCordura = Resources.Load<Sprite>("fondo_cordura_low");
+        HighEnergia = Resources.Load<Sprite>("fondo_energia_high");
+        LowEnergia = Resources.Load<Sprite>("fondo_energia_low");
     }
     void Start()
     {
         text_Interacturar.text = button["interactuar"].ToUpper() + " Interactuar";
         text_Subir.text = button["subir"].ToUpper() + " Subir";
+        corduraFondo = barra_cordura.transform.GetChild(0).GetComponent<Image>();
+        energiaFondo = barra_energia.transform.GetChild(0).GetComponent<Image>();
         
+    }
+
+    public void setInteractuarVisible(bool visible)
+    {
+        text_Interacturar.enabled = visible;
+    }
+    public void setSubirVisible(bool visible)
+    {
+        text_Subir.enabled = visible;
+    }
+
+    public void UpdateCordura(float value)
+    {
+        if(value > 0.3 && bajaCordura)
+        {
+            corduraFondo.sprite = HighCordura;
+            bajaCordura = false;
+        }
+        else if(value <= 0.3 && !bajaCordura)
+        {
+            corduraFondo.sprite = LowCordura;
+            bajaCordura = true;
+        }
+        float v = value * 0.9f;
+        barra_cordura.value = v; 
+    }
+
+    public void UpdateEnergia(float value)
+    {
+        if (value > 0.3 && bajaEnergia)
+        {
+            energiaFondo.sprite = HighEnergia;
+            bajaEnergia = false;
+        }
+        else if (value <= 0.3 && !bajaEnergia)
+        {
+            energiaFondo.sprite = LowEnergia;
+            bajaEnergia = true;
+        }
+        float v = value * 0.9f;
+        barra_energia.value = v;
     }
 
 }
