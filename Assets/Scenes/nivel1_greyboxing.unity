@@ -4808,7 +4808,7 @@ Light:
   serializedVersion: 9
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.4
+  m_Intensity: 0.5
   m_Range: 130
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4839,7 +4839,7 @@ Light:
       e32: 0
       e33: 1
     m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 0}
+  m_Cookie: {fileID: 8900000, guid: 360fb37f6c73a6946ae45a615dbc5ebe, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
@@ -10867,7 +10867,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4225983158476098178}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 77b19bf68ecf2b749ae1b6dc1d48376d, type: 2}
   m_CullingMode: 0
@@ -10968,7 +10968,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9076438534225898889}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -13520,8 +13520,8 @@ Light:
   m_Color: {r: 0.5186454, g: 0.62831205, b: 0.990566, a: 1}
   m_Intensity: 3.5
   m_Range: 90
-  m_SpotAngle: 46
-  m_InnerSpotAngle: 21.80208
+  m_SpotAngle: 40
+  m_InnerSpotAngle: 4
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -14299,7 +14299,7 @@ Light:
       e32: 0
       e33: 1
     m_UseCullingMatrixOverride: 0
-  m_Cookie: {fileID: 8900000, guid: 360fb37f6c73a6946ae45a615dbc5ebe, type: 3}
+  m_Cookie: {fileID: 8900000, guid: 0c35a4eaec4eec4479c3bdb809efa09d, type: 3}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
   m_RenderMode: 0
