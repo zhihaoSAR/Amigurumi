@@ -27,7 +27,6 @@ public class Enemy : MonoBehaviour
             obj = hit.collider.gameObject;
             if (obj.tag == "Player")
             {
-
                 player.recibirDano(transform.position);
             }
         }
