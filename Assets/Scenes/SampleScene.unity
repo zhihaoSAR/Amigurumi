@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.921
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.04065592, g: 0.038207512, b: 0.31259453, a: 0.921}
+  m_IndirectSpecularColor: {r: 0.0031045896, g: 0.0029156564, b: 0.07838563, a: 0.921}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1245,7 +1245,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ebb55b5f8d82445965eb5bb45ef5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 3
 --- !u!1 &833897049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1735,10 +1734,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b4152d812575f1438e0d4c73308b6c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
   cordura: 1000
   energia: 0
   barra_cordura: {fileID: 1766355621}
-  enemies: {fileID: 1161987443}
+  camera: {fileID: 0}
+  myPos: {fileID: 0}
+  speed: 0
+  runSpeed: 0
+  controllable: 1
+  animator: {fileID: 0}
+  speedH: 0
+  speedV: 0
+  limitUp: 0
+  limitDown: 0
+  distance: 0
+  text_Interactuar: {fileID: 0}
   hMin: 0.2
   hMax: 0.8
   wMin: 0.2
@@ -2930,8 +2941,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46738add6e53674ebb05a99c56786b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  controller: {fileID: 0}
 --- !u!143 &1605026965
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2962,10 +2971,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263941b7b140d5a4b96927e0e7b827b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedH: 5
-  speedV: 5
-  limitUp: 50
-  limitDown: -50
 --- !u!1 &1673157700
 GameObject:
   m_ObjectHideFlags: 0
@@ -3239,7 +3244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ebb55b5f8d82445965eb5bb45ef5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 10
 --- !u!4 &2054548693
 Transform:
   m_ObjectHideFlags: 0
