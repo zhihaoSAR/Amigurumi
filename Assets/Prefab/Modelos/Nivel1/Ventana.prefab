@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6417605075739455386}
   - component: {fileID: 6417605075739455387}
   m_Layer: 0
-  m_Name: marcoint3
+  m_Name: marcoint3_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 6417605076003336051}
   - component: {fileID: 6417605076003336048}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: Cube__2_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -898,7 +898,7 @@ GameObject:
   - component: {fileID: 6417605076778796916}
   - component: {fileID: 6417605076778796917}
   m_Layer: 0
-  m_Name: Cylinder (1)
+  m_Name: Cylinder__1_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1427,7 +1427,7 @@ GameObject:
   - component: {fileID: 6417605077082966708}
   - component: {fileID: 6417605077082966709}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Cube__1_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1552,7 +1552,7 @@ GameObject:
   - component: {fileID: 6417605077149967043}
   - component: {fileID: 6417605077149967040}
   m_Layer: 0
-  m_Name: marcoint1
+  m_Name: marcoint1_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1735,7 +1735,7 @@ GameObject:
   - component: {fileID: 6417605077333482970}
   - component: {fileID: 6417605077333482971}
   m_Layer: 0
-  m_Name: marcoint2
+  m_Name: marcoint2_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2045,7 +2045,7 @@ GameObject:
   - component: {fileID: 6417605077449240495}
   - component: {fileID: 6417605077449240492}
   m_Layer: 0
-  m_Name: marcoint4
+  m_Name: marcoint4_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2171,7 +2171,7 @@ GameObject:
   - component: {fileID: 6417605077596621351}
   - component: {fileID: 6417605077596621348}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: Cube__3_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2658,7 +2658,7 @@ GameObject:
   - component: {fileID: 4878836358151868842}
   - component: {fileID: 3864527972278417248}
   m_Layer: 0
-  m_Name: Cristal2 (1)
+  m_Name: Cristal2__1_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
