@@ -8,6 +8,6 @@ public class mainMenu : MonoBehaviour
     // Start is called before the first frame update
    public void startGame()
     {
-        SceneManager.LoadScene("nivel1_greyboxing");
+        SceneManager.LoadScene("nivel1_oficina");
     }
 }

@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/main_menu.unity
     guid: 06111da6af7ab46859b127adf8bb6a06
   - enabled: 1
-    path: Assets/Scenes/nivel1_greyboxing.unity
-    guid: c6a8e07d4f71dc744afd55103c500fb3
+    path: Assets/Scenes/nivel1_oficina.unity
+    guid: 6895115bb0c7d3345b727bd490babaa4
   m_configObjects: {}
