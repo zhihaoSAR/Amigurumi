@@ -14,6 +14,7 @@ public class MainControl : MonoBehaviour
     static Sprite HighCordura,LowCordura,HighEnergia,LowEnergia;
 
 
+
     void Awake()
     {
         var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
@@ -92,6 +93,12 @@ public class MainControl : MonoBehaviour
         }
         float v = value * 0.9f;
         barra_energia.value = v;
+    }
+
+
+    public void luzEncendida()
+    {
+
     }
 
 }

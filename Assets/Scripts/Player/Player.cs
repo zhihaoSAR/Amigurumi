@@ -36,7 +36,7 @@ public class Player : MonoBehaviour
     GameObject obj;
     public float distance;
     Interactuable func;
-    Vector3 touchPos;
+    float PushObjdistance;
 
     //variable para controlar empujar
     bool limited;
@@ -102,7 +102,6 @@ public class Player : MonoBehaviour
 
                         
                         func.OnInteraction(ray,hit,0);
-                        touchPos = hit.point;
                     }
                 }
                 else
@@ -262,23 +261,27 @@ public class Player : MonoBehaviour
             {
                 camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x + rotationx,
                                                             camera.transform.eulerAngles.y + rotationy, 0);
-                if (Input.GetButton("interactuar") && Vector3.Distance(myPos.position, touchPos) <= 5)
+                if (Input.GetButton("interactuar") &&
+                                        (pushObj.position - myPos.position).magnitude < PushObjdistance+3)
                 {
                     Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
                                 new Vector3(0, moveY, vertical);
                     if (Mathf.Approximately(vertical, 0))
                     {
                         animator.speed = 0;
+                        cameraAnimator.speed = 0.2f;
                     }
                     else if (vertical < 0)
                     {
                         setAnimation("enPie","tirar");
                         animator.speed = 1;
+                        cameraAnimator.speed = 1;
                     }
                     else
                     {
                         setAnimation("enPie","empujar");
                         animator.speed = 1;
+                        cameraAnimator.speed = 1;
                     }
                     Vector3 moveStep = movement * pushSpeed * Time.deltaTime;
                     Vector3 objetivo;
@@ -390,6 +393,7 @@ public class Player : MonoBehaviour
         
         this.pushSpeed = pushSpeed;
         pushObj = obj;
+        PushObjdistance = (obj.position - myPos.position).magnitude;
 
         if (!enPie)
         {
@@ -430,7 +434,7 @@ public class Player : MonoBehaviour
         controllable = true;
         isAnimating = false;
     }
-    public void saltar(Rigidbody obj, Vector3 startPos,Vector3 endPos)
+    public void saltar( Vector3 startPos,Vector3 endPos)
     {
 
         if (!enPie)

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class cajon : MonoBehaviour,Interactuable
 {
-    public bool subible = false, interactuable = true;
     Player player;
     public Transform limitMin, limitMax,endPos;
     public float speed = 2.5f;
@@ -36,7 +35,7 @@ public class cajon : MonoBehaviour,Interactuable
             end.y = endPos.position.y;
             Vector3 start = hit.point - ray.direction.normalized;
             start.y = endPos.position.y;
-            player.saltar(myBody, start,end);
+            player.saltar(start,end);
         }
         
     }
@@ -54,6 +53,6 @@ public class cajon : MonoBehaviour,Interactuable
         Vector3 producto = Vector3.Cross(Quaternion.Euler(0, transform.eulerAngles.y, 0) * transform.right,
                                                                player.myPos.position - transform.position );
 
-        return producto.y > 0 && hit.normal.y == 0 && (limitMax.position - transform.position).magnitude >= 2;
+        return producto.y > 0 && hit.normal.y == 0 && (limitMin.position - transform.position).magnitude <= 0.5;
     }
 }

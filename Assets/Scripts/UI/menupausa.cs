@@ -5,7 +5,7 @@ using UnityEngine;
 public class menupausa : MonoBehaviour
 {
     public Canvas menu,ui;
-    private bool pausaActivated = true;
+    private bool pausaEnable = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,11 +31,11 @@ public class menupausa : MonoBehaviour
 
     public void pausa()
     {
-        if (pausaActivated)
+        if (pausaEnable)
         {
             menu.enabled = !menu.enabled;
             ui.enabled = !ui.enabled;
-            pausaActivated = false;
+            pausaEnable = false;
             if (menu.enabled)
             {
                 Cursor.lockState = CursorLockMode.Confined;
@@ -56,6 +56,6 @@ public class menupausa : MonoBehaviour
     private IEnumerator hacerAnimacion(float seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
-        pausaActivated = true;
+        pausaEnable = true;
     }
 }
