@@ -18,7 +18,10 @@ public class MaquinaDeEstados : MonoBehaviour
 
     public void ActivarEstado(MonoBehaviour nuevoEstado)
     {
-        if(estadoActual != null) estadoActual.enabled = false;
+        if (estadoActual != null)
+        {
+            estadoActual.enabled = false;
+        }
         estadoActual = nuevoEstado;
         estadoActual.enabled = true;
     }
