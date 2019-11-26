@@ -53,6 +53,6 @@ public class cajon : MonoBehaviour,Interactuable
         Vector3 producto = Vector3.Cross(Quaternion.Euler(0, transform.eulerAngles.y, 0) * transform.right,
                                                                player.myPos.position - transform.position );
 
-        return producto.y > 0 && hit.normal.y == 0 && (limitMin.position - transform.position).magnitude <= 0.1;
+        return producto.y > 0 && hit.normal.y == 0 && (limitMin.position - transform.position).magnitude <= 0.5;
     }
 }

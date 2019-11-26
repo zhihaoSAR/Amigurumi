@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 139702506187370540}
+  - component: {fileID: 8122361105290863900}
   m_Layer: 0
   m_Name: mesa
   m_TagString: Untagged
@@ -32,6 +33,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8122361105290863900
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4011312436556677695}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 34.149605, y: 1.9547653, z: 14.75561}
+  m_Center: {x: 0.766819, y: 16.513626, z: 21.597197}
 --- !u!1 &4026133969424344947
 GameObject:
   m_ObjectHideFlags: 0
@@ -43,6 +57,7 @@ GameObject:
   - component: {fileID: 8903867529099051755}
   - component: {fileID: 45316175865624652}
   - component: {fileID: 3238558872100771721}
+  - component: {fileID: 4060622556748813550}
   m_Layer: 0
   m_Name: Mesasincajon
   m_TagString: Untagged
@@ -109,6 +124,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &4060622556748813550
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4026133969424344947}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 8102022178895049497, guid: 61a6a64b2b5e5024cb9d88eb0cf03f7e, type: 3}
 --- !u!1 &5693912701205452695
 GameObject:
   m_ObjectHideFlags: 0
