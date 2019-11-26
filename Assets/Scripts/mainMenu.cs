@@ -5,9 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class mainMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-   public void startGame()
+
+    //Start is called before the first frame update
+    public void StartGame()
     {
-        SceneManager.LoadScene("nivel1_oficina");
+
+        //SceneManager.LoadScene("nivel1_oficina");
     }
 }
