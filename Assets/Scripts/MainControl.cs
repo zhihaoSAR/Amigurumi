@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class MainControl : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class MainControl : MonoBehaviour
     Image corduraFondo,energiaFondo;
     static bool bajaCordura = false,bajaEnergia = false;
     static Sprite HighCordura,LowCordura,HighEnergia,LowEnergia;
+    public LevelChangerScript levelChanger;
 
 
 
@@ -99,6 +101,11 @@ public class MainControl : MonoBehaviour
     public void luzEncendida()
     {
 
+    }
+
+    public void GameOver()
+    {
+        levelChanger.FadeToLevel(2);    
     }
 
 }

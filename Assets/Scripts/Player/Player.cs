@@ -139,7 +139,8 @@ public class Player : MonoBehaviour
             cordura -= 150 * Time.deltaTime;
             if (cordura <= 0)
             {
-                Debug.Log("GAME OVER");
+                //Debug.Log("GAME OVER");
+                mc.GameOver();
             }
         }
         else
