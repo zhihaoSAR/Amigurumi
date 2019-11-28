@@ -1506,6 +1506,20 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 965315031}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &177780363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177780361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5579482f545282479664bd2db06ac28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  polillaLuz: 0
+  controladorNavMesh: {fileID: 177780364}
 --- !u!114 &177780364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1515,15 +1529,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 177780361}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91e6a77b2e6dea646b08da5f4c4fd144, type: 3}
+  m_Script: {fileID: 11500000, guid: 84be8c4806c46214bb466ce86c4bcbb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text_Interacturar: {fileID: 0}
-  text_Subir: {fileID: 0}
-  barra_cordura: {fileID: 0}
-  barra_energia: {fileID: 0}
-  levelChanger: {fileID: 0}
-  polilla: {fileID: 177780361}
+  perseguirObjetivo: {fileID: 0}
 --- !u!1 &204975556
 GameObject:
   m_ObjectHideFlags: 0
@@ -2763,7 +2772,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1052743060}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -927199367670048503, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
@@ -2773,37 +2782,37 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -24.48
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.98
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 20.965248
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
@@ -2813,7 +2822,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 5e6eddf7c4e183143b772270f16c1cc1,
         type: 3}
@@ -4337,6 +4346,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1735991354}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1736036600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: cea71cf6a5069714bb02c72128c6608a,
+    type: 3}
+  m_PrefabInstance: {fileID: 153002584}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1736036603
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1736036600}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.003, y: 0.33999997, z: 0.19949998}
+  m_Center: {x: 0.000000029802322, y: 0.0000000018626451, z: 0.109749995}
 --- !u!1 &1812211852
 GameObject:
   m_ObjectHideFlags: 0
@@ -4722,6 +4750,7 @@ MonoBehaviour:
   color: {r: 1, g: 1, b: 0.57254905, a: 0}
   light: {fileID: 1648467591}
   renderer: {fileID: 1385105335}
+  polilla: {fileID: 177780363}
 --- !u!64 &2053253630
 MeshCollider:
   m_ObjectHideFlags: 0
