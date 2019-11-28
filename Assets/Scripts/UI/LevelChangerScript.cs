@@ -22,6 +22,8 @@ public class LevelChangerScript : MonoBehaviour
 
     public void OnFadeComplete()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene(levelLoaded);
     }
 }
