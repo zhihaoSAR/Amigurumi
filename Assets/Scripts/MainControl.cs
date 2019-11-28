@@ -14,11 +14,14 @@ public class MainControl : MonoBehaviour
     static bool bajaCordura = false,bajaEnergia = false;
     static Sprite HighCordura,LowCordura,HighEnergia,LowEnergia;
     public LevelChangerScript levelChanger;
+    private ControladorNavMesh controladorNavMesh;
+    public GameObject polilla;
 
 
 
     void Awake()
     {
+        controladorNavMesh = GetComponent<ControladorNavMesh>();
         var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
         SerializedObject obj = new SerializedObject(inputManager);
         SerializedProperty axisArray = obj.FindProperty("m_Axes");
@@ -100,7 +103,8 @@ public class MainControl : MonoBehaviour
 
     public void luzEncendida()
     {
-
+        controladorNavMesh.DeteberNavMeshAgent();
+        polilla.SetActive(true);
     }
 
     public void GameOver()
