@@ -12,4 +12,9 @@ public class mainMenu : MonoBehaviour
 
         //SceneManager.LoadScene("nivel1_oficina");
     }
+
+    public void Salir()
+    {
+        Application.Quit();
+    }
 }

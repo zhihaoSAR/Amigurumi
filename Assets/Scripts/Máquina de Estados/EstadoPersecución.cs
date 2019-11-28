@@ -40,9 +40,9 @@ public class EstadoPersecución : MonoBehaviour
         float distanciaActual = Vector3.Distance(agent.transform.position, transform.position);
         if (distanciaActual > distanciaMaxima)
         {
-
+        
             maquinaDeEstados.ActivarEstado(maquinaDeEstados.EstadoAlerta);
-
+        
         }
 
         //if (!controladorVision.PuedeVerAlJugador(out hit, true))

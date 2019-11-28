@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EstadoPatrulla : MonoBehaviour
 {
@@ -10,12 +11,16 @@ public class EstadoPatrulla : MonoBehaviour
     private int siguienteWayPoint;
     private MaquinaDeEstados maquinaDeEstados;
     private ControladorVision controladorVision;
+    private NavMeshAgent agent;
+    public AudioClip clip;
+    private AudioSource source;
 
     void Awake()
     {
         maquinaDeEstados = GetComponent<MaquinaDeEstados>();
         controladorNavMesh = GetComponent<ControladorNavMesh>();
         controladorVision = GetComponent<ControladorVision>();
+        source = GetComponent<AudioSource>();
     }
 
 
@@ -25,6 +30,9 @@ public class EstadoPatrulla : MonoBehaviour
         RaycastHit hit;
         if(controladorVision.PuedeVerAlJugador(out hit))
         {
+            source.clip = clip;
+            source.Play();
+
             controladorNavMesh.perseguirObjetivo = hit.transform;
             maquinaDeEstados.ActivarEstado(maquinaDeEstados.EstadoPersecucion);
             return;
