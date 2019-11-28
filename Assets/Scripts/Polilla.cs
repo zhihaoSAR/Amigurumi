@@ -7,7 +7,7 @@ public class Polilla : MonoBehaviour
     public bool polillaLuz = false;
     private bool empezarB = true;
     private GameObject lampara, amigurumi,player;
-    public ControladorNavMesh controladorNavMesh;
+    //public ControladorNavMesh controladorNavMesh;
     private Vector3 diff;
     private float t, t2;
     private float vel;
@@ -20,7 +20,7 @@ public class Polilla : MonoBehaviour
         transform.localScale = new Vector3(0, 0, 0);
         lampara = GameObject.Find("lampara_fina");
         //player = GameObject.Find("Player");
-        controladorNavMesh = GetComponent<ControladorNavMesh>();
+        //controladorNavMesh = GetComponent<ControladorNavMesh>();
         amigurumi = GameObject.Find("Enemigo_NV1");
         diff = lampara.transform.position - amigurumi.transform.position;
         posY = lampara.transform.position.y;
@@ -73,7 +73,7 @@ public class Polilla : MonoBehaviour
     public void activarPolilla()
     {
         polillaLuz = true;
-        controladorNavMesh.DeteberNavMeshAgent();
+        //controladorNavMesh.DeteberNavMeshAgent();
         
         
     }
