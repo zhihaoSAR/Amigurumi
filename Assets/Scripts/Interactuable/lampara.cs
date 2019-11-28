@@ -10,6 +10,7 @@ public class lampara : MonoBehaviour,Interactuable
     public MeshRenderer renderer;
     Material mat;
     MainControl control;
+    public Polilla polilla;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class lampara : MonoBehaviour,Interactuable
         GetComponent<Animator>().SetBool("LuzEncendida", true);
         light.GetComponent<Animator>().SetBool("EncenderLampara", true);
         encendido = true;
+        vuelaPolilla();
         StartCoroutine("encenderLuz", 5);
     }
 
@@ -47,5 +49,11 @@ public class lampara : MonoBehaviour,Interactuable
     public bool interactuable(RaycastHit hit)
     {
         return !encendido;
+    }
+
+    void vuelaPolilla()
+    {
+        polilla.activarPolilla();
+
     }
 }
