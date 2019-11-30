@@ -463,6 +463,8 @@ public class Player : MonoBehaviour
         Vector3 movement = Vector3.zero;
         movement = startPos - transform.position;
         movement.y -= 1f;
+        Vector3 offset = transform.InverseTransformPoint(camera.transform.position);
+        camera.transform.parent = myPos.parent;
         animator.SetTrigger("subir");
         while (time < 0.5)
         {
@@ -487,9 +489,13 @@ public class Player : MonoBehaviour
         //movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) * movement;
         movement.y = 0;
         movement *= 0.3f;
+        camera.transform.parent = cameraAnimator.transform;
+        camera.transform.position = transform.TransformPoint(offset);
+        camera.transform.eulerAngles = new Vector3(0, 0, 0);
         controller.Move(movement);
         controllable = true;
         isAnimating = false;
+
     }
 
 
