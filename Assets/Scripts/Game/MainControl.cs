@@ -14,6 +14,7 @@ public class MainControl : MonoBehaviour
     static bool bajaCordura = false,bajaEnergia = false;
     static Sprite HighCordura,LowCordura,HighEnergia,LowEnergia;
     public LevelChangerScript levelChanger;
+    
     //private ControladorNavMesh controladorNavMesh;
     //public Polilla polilla;
 
@@ -57,6 +58,7 @@ public class MainControl : MonoBehaviour
         text_Subir.text = button["subir"].ToUpper() + " Subir";
         corduraFondo = barra_cordura.transform.GetChild(0).GetComponent<Image>();
         energiaFondo = barra_energia.transform.GetChild(0).GetComponent<Image>();
+        
         
     }
 
@@ -106,6 +108,7 @@ public class MainControl : MonoBehaviour
     {
         //controladorNavMesh.DeteberNavMeshAgent();
         //polilla.activarPolilla();
+        
     }
 
     public void GameOver()

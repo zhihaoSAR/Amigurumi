@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     GameObject obj;
+    public bool realizaDano = true;
     
 
     // Start is called before the first frame update
