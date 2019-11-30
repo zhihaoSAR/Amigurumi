@@ -319,6 +319,7 @@ public class Player : MonoBehaviour
                     controllable = false;
                     //setAnimation("parado",null);
                     animator.speed = 1;
+                    pushObj.isKinematic = true;
                     state = Estado.MOVE;
                     StartCoroutine(PreparePush(0.2f,transform.position));
                 }
@@ -394,6 +395,7 @@ public class Player : MonoBehaviour
         
         this.pushSpeed = pushSpeed;
         pushObj = obj;
+        pushObj.isKinematic = false;
         PushObjdistance = (obj.position - myPos.position).magnitude;
 
         if (!enPie)
