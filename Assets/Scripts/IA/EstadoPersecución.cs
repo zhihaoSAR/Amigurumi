@@ -37,19 +37,19 @@ public class EstadoPersecución : MonoBehaviour
     {
         RaycastHit hit;
 
-        float distanciaActual = Vector3.Distance(agent.transform.position, transform.position);
-        if (distanciaActual > distanciaMaxima)
-        {
-        
-            maquinaDeEstados.ActivarEstado(maquinaDeEstados.EstadoAlerta);
-        
-        }
-
-        //if (!controladorVision.PuedeVerAlJugador(out hit, true))
+        //float distanciaActual = Vector3.Distance(agent.transform.position, transform.position);
+        //if (distanciaActual > distanciaMaxima)
         //{
+        //
         //    maquinaDeEstados.ActivarEstado(maquinaDeEstados.EstadoAlerta);
-        //    return;
+        //
         //}
+
+        if (!controladorVision.PuedeVerAlJugador(out hit, true))
+        {
+            maquinaDeEstados.ActivarEstado(maquinaDeEstados.EstadoAlerta);
+            return;
+        }
 
         controladorNavMesh.ActualizarPuntoDestinoNavMeshAgent();
     }
