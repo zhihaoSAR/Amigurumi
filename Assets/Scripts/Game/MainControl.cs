@@ -8,7 +8,8 @@ using UnityEngine.SceneManagement;
 public class MainControl : MonoBehaviour
 {
     Dictionary<string, string> button = new Dictionary<string, string>();
-    public Text text_Interacturar,text_Subir;
+    //public Text text_Interacturar,text_Subir;
+    public Image push, up;
     public Slider barra_cordura , barra_energia;
     Image corduraFondo,energiaFondo;
     static bool bajaCordura = false,bajaEnergia = false;
@@ -53,8 +54,8 @@ public class MainControl : MonoBehaviour
     }
     void Start()
     {
-        text_Interacturar.text = button["interactuar"].ToUpper() + " Interactuar";
-        text_Subir.text = button["subir"].ToUpper() + " Subir";
+        push.name = button["interactuar"].ToUpper() + " Interactuar";
+        up.name = button["subir"].ToUpper() + " Subir";
         corduraFondo = barra_cordura.transform.GetChild(0).GetComponent<Image>();
         energiaFondo = barra_energia.transform.GetChild(0).GetComponent<Image>();
         
@@ -62,11 +63,12 @@ public class MainControl : MonoBehaviour
 
     public void setInteractuarVisible(bool visible)
     {
-        text_Interacturar.enabled = visible;
+        
+        push.enabled = visible;
     }
     public void setSubirVisible(bool visible)
     {
-        text_Subir.enabled = visible;
+        up.enabled = visible;
     }
 
     public void UpdateCordura(float value)
