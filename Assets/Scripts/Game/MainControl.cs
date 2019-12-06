@@ -63,8 +63,14 @@ public class MainControl : MonoBehaviour
 
     public void setInteractuarVisible(bool visible)
     {
-        
-        push.enabled = visible;
+        if(up.enabled != true)
+        {
+            push.enabled = visible;
+        }
+        else
+        {
+            push.enabled = false;
+        }
     }
     public void setSubirVisible(bool visible)
     {
