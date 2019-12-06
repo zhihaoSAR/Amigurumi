@@ -18,6 +18,7 @@ public class MainControl : MonoBehaviour
     AudioClip finalClip;
     AudioSource bgm;
     public GameObject enemy;
+    menupausa menuControl;
     
     //private ControladorNavMesh controladorNavMesh;
     //public Polilla polilla;
@@ -65,7 +66,7 @@ public class MainControl : MonoBehaviour
         corduraFondo = barra_cordura.transform.GetChild(0).GetComponent<Image>();
         energiaFondo = barra_energia.transform.GetChild(0).GetComponent<Image>();
         bgm = GameObject.Find("Musica").GetComponent<AudioSource>();
-        
+        menuControl = GetComponent<menupausa>();
     }
 
     public void setInteractuarVisible(bool visible)
@@ -115,8 +116,8 @@ public class MainControl : MonoBehaviour
         Player.controllable = false;
         realizarDano = false;
         enemy.GetComponent<MaquinaDeEstados>().morir();
-        StartCoroutine("fadeOutMusic",1f);
-        Invoke("acabadoAnimacion", 15.37f);
+        menuControl.cinematicMode(true);
+        StartCoroutine("fadeOutMusic",2f);
         
     }
 
@@ -129,6 +130,7 @@ public class MainControl : MonoBehaviour
     {
         Player.controllable = true;
         enemy.GetComponent<Animator>().enabled = false;
+        menuControl.cinematicMode(false);
 
     }
 

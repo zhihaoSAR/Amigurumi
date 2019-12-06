@@ -47,6 +47,28 @@ MonoBehaviour:
   dirtIntensity:
     overrideState: 1
     value: 0
+--- !u!114 &-6910190991691964332
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b94fcd11afffcb142908bfcb1e261fba, type: 3}
+  m_Name: MotionBlur
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  shutterAngle:
+    overrideState: 1
+    value: 245
+  sampleCount:
+    overrideState: 1
+    value: 11
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +85,7 @@ MonoBehaviour:
   - {fileID: -9065891358428678749}
   - {fileID: 4324842295697442728}
   - {fileID: 5150956651509347859}
+  - {fileID: -6910190991691964332}
 --- !u!114 &4324842295697442728
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -137,7 +160,7 @@ MonoBehaviour:
     value: 0
   contrast:
     overrideState: 1
-    value: 6
+    value: 1
   mixerRedOutRedIn:
     overrideState: 1
     value: 109
@@ -146,7 +169,7 @@ MonoBehaviour:
     value: 18
   mixerRedOutBlueIn:
     overrideState: 1
-    value: -21
+    value: -6
   mixerGreenOutRedIn:
     overrideState: 1
     value: 0
@@ -1386,7 +1409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f6f3f7c722b4544b97e3c75840aa33, type: 3}
   m_Name: AutoExposure
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1

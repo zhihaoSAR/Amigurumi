@@ -6,6 +6,7 @@ public class menupausa : MonoBehaviour
 {
     public Canvas menu,ui;
     private bool pausaEnable = true;
+    CanvasGroup uiGroup;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +14,7 @@ public class menupausa : MonoBehaviour
         ui.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
+        uiGroup = ui.GetComponent<CanvasGroup>();
     }
 
     // Update is called once per frame
@@ -25,7 +27,6 @@ public class menupausa : MonoBehaviour
                 pausa();
             }
         }
-        
 
     }
 
@@ -51,6 +52,44 @@ public class menupausa : MonoBehaviour
             StartCoroutine("hacerAnimacion", 1);
         }
        
+    }
+
+    public void cinematicMode(bool enter)
+    {
+        if (enter)
+        {
+            pausaEnable = false;
+            StartCoroutine("fadeOutUI", 1f);
+        }
+        else
+        {
+            StartCoroutine("fadeInUI", 1f);
+        }
+        
+
+    }
+    IEnumerator fadeInUI(float second)
+    {
+        float time = 0;
+        while (time < second)
+        {
+            time += Time.deltaTime;
+            uiGroup.alpha = 1 * ( time / second);
+            yield return null;
+        }
+        pausaEnable = true;
+    }
+
+    IEnumerator fadeOutUI(float second)
+    {
+        float time = 0;
+        while (time < second)
+        {
+            time += Time.deltaTime;
+            uiGroup.alpha = 1 * (second - time / second);
+            yield return null;
+        }
+
     }
 
     private IEnumerator hacerAnimacion(float seconds)
