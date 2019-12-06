@@ -15,6 +15,9 @@ public class MainControl : MonoBehaviour
     static bool bajaCordura = false,bajaEnergia = false;
     static Sprite HighCordura,LowCordura,HighEnergia,LowEnergia;
     public LevelChangerScript levelChanger;
+    AudioClip finalClip;
+    AudioSource bgm;
+    public GameObject enemy;
     
     //private ControladorNavMesh controladorNavMesh;
     //public Polilla polilla;
@@ -52,6 +55,8 @@ public class MainControl : MonoBehaviour
         LowCordura = Resources.Load<Sprite>("fondo_cordura_low");
         HighEnergia = Resources.Load<Sprite>("fondo_energia_high");
         LowEnergia = Resources.Load<Sprite>("fondo_energia_low");
+        finalClip = Resources.Load<AudioClip>("persecucion");
+
     }
     void Start()
     {
@@ -59,6 +64,7 @@ public class MainControl : MonoBehaviour
         text_Subir.text = button["subir"].ToUpper() + " Subir";
         corduraFondo = barra_cordura.transform.GetChild(0).GetComponent<Image>();
         energiaFondo = barra_energia.transform.GetChild(0).GetComponent<Image>();
+        bgm = GameObject.Find("Musica").GetComponent<AudioSource>();
         
     }
 
@@ -108,6 +114,9 @@ public class MainControl : MonoBehaviour
     {
         Player.controllable = false;
         realizarDano = false;
+        enemy.GetComponent<MaquinaDeEstados>().morir();
+        StartCoroutine("fadeOutMusic",1f);
+        Invoke("acabadoAnimacion", 15.37f);
         
     }
 
@@ -116,4 +125,30 @@ public class MainControl : MonoBehaviour
         levelChanger.FadeToLevel(2);    
     }
 
+    public void acabadoAnimacion()
+    {
+        Player.controllable = true;
+        enemy.GetComponent<Animator>().enabled = false;
+
+    }
+
+
+    public IEnumerator fadeOutMusic(float second)
+    {
+        float time = 0;
+        while(time < second)
+        {
+            time += Time.deltaTime;
+            bgm.volume = 1 * (second-time / second);
+            yield return null;
+        }
+        bgm.loop = false;
+    }
+
+    public void switchMusic()
+    {
+        bgm.clip = finalClip;
+        bgm.volume = 1;
+        bgm.Play();
+    }
 }

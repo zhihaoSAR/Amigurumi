@@ -61,4 +61,9 @@ public class lampara : MonoBehaviour,Interactuable
         polilla.activarPolilla();
 
     }
+
+    void OnPlayableDirectorStopped(PlayableDirector aDirector)
+    {
+        control.acabadoAnimacion();
+    }
 }
