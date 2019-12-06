@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class MainControl : MonoBehaviour
 {
+    public static bool realizarDano = true;
     Dictionary<string, string> button = new Dictionary<string, string>();
     public Text text_Interacturar,text_Subir;
     public Slider barra_cordura , barra_energia;
@@ -59,7 +60,6 @@ public class MainControl : MonoBehaviour
         corduraFondo = barra_cordura.transform.GetChild(0).GetComponent<Image>();
         energiaFondo = barra_energia.transform.GetChild(0).GetComponent<Image>();
         
-        
     }
 
     public void setInteractuarVisible(bool visible)
@@ -106,8 +106,8 @@ public class MainControl : MonoBehaviour
 
     public void luzEncendida()
     {
-        //controladorNavMesh.DeteberNavMeshAgent();
-        //polilla.activarPolilla();
+        Player.controllable = false;
+        realizarDano = false;
         
     }
 

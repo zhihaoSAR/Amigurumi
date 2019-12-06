@@ -13,14 +13,12 @@ public class lampara : MonoBehaviour,Interactuable
     MainControl control;
     public Polilla polilla;
     PlayableDirector encenderLamp;
-    Player player;
 
     void Start()
     {
         mat =renderer.GetComponent<Renderer>().material;
         control = GameObject.Find("MainControl").GetComponent<MainControl>();
         encenderLamp = GetComponent<PlayableDirector>();
-        player = GameObject.Find("Player").GetComponent<Player>();
     }
     IEnumerator encenderLuz(float secondos)
     {
@@ -32,7 +30,7 @@ public class lampara : MonoBehaviour,Interactuable
             time += Time.deltaTime;
             yield return null;
         }
-        control.luzEncendida();
+        
         
         
     }
@@ -42,9 +40,9 @@ public class lampara : MonoBehaviour,Interactuable
         GetComponent<Animator>().SetBool("LuzEncendida", true);
         light.GetComponent<Animator>().SetBool("EncenderLampara", true);
         encendido = true;
-        player.controllable = false;
         vuelaPolilla();
         encenderLamp.Play();
+        this.control.luzEncendida();
         StartCoroutine("encenderLuz", 5);
     }
 

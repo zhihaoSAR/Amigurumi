@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float speed, runSpeed;
     float horizontal, vertical, m_gravity = 50f;
     private CharacterController controller;
-    public bool controllable = true;
+    public static bool controllable = true;
     string lastAnimation = null,lastNivel = "parado";
     public Animator animator;
     bool enPie = false;
@@ -565,7 +565,6 @@ public class Player : MonoBehaviour
         this.seconds = seconds;
         controllable = false;
         Vector3 now,offset;
-        deltaPos.y = -m_gravity;
         //float deltaHeight;
         if(forma == 0)
         {

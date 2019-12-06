@@ -9,7 +9,6 @@ public class Enemy : MonoBehaviour
     Ray ray;
     RaycastHit hit;
     GameObject obj;
-    public bool realizaDano = true;
     
 
     // Start is called before the first frame update
@@ -26,7 +25,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.DrawLine(transform.position, (player.myPos.position - transform.position) * hit.distance, Color.yellow);
             obj = hit.collider.gameObject;
-            if (obj.tag == "Player")
+            if (obj.tag == "Player" && MainControl.realizarDano)
             {
                 player.recibirDano(transform.position);
             }
