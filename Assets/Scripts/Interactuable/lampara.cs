@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class lampara : MonoBehaviour,Interactuable
 {
@@ -11,23 +12,25 @@ public class lampara : MonoBehaviour,Interactuable
     Material mat;
     MainControl control;
     public Polilla polilla;
+    PlayableDirector encenderLamp;
 
     void Start()
     {
         mat =renderer.GetComponent<Renderer>().material;
         control = GameObject.Find("MainControl").GetComponent<MainControl>();
+        encenderLamp = GetComponent<PlayableDirector>();
     }
     IEnumerator encenderLuz(float secondos)
     {
         float time = 0;
-        while(time < secondos)
+        while (time < secondos)
         {
             Color finalColor = color * Mathf.LinearToGammaSpace(light.intensity);
             mat.SetColor("_EmissionColor", finalColor);
             time += Time.deltaTime;
             yield return null;
         }
-        control.luzEncendida();
+        
         
         
     }
@@ -38,6 +41,8 @@ public class lampara : MonoBehaviour,Interactuable
         light.GetComponent<Animator>().SetBool("EncenderLampara", true);
         encendido = true;
         vuelaPolilla();
+        encenderLamp.Play();
+        this.control.luzEncendida();
         StartCoroutine("encenderLuz", 5);
     }
 
@@ -55,5 +60,10 @@ public class lampara : MonoBehaviour,Interactuable
     {
         polilla.activarPolilla();
 
+    }
+
+    void OnPlayableDirectorStopped(PlayableDirector aDirector)
+    {
+        control.acabadoAnimacion();
     }
 }

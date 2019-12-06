@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MaquinaDeEstados : MonoBehaviour
 {
@@ -24,6 +25,14 @@ public class MaquinaDeEstados : MonoBehaviour
         }
         estadoActual = nuevoEstado;
         estadoActual.enabled = true;
+    }
+
+    public void morir()
+    {
+        estadoActual.enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
+        GetComponent<NavMeshAgent>().enabled = false;
+        enabled = false;
     }
 
 }

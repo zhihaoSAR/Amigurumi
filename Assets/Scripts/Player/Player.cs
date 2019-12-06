@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float speed, runSpeed;
     float horizontal, vertical, m_gravity = 50f;
     private CharacterController controller;
-    public bool controllable = true;
+    public static bool controllable = true;
     string lastAnimation = null,lastNivel = "parado";
     public Animator animator;
     bool enPie = false;
@@ -319,6 +319,7 @@ public class Player : MonoBehaviour
                     controllable = false;
                     //setAnimation("parado",null);
                     animator.speed = 1;
+                    pushObj.isKinematic = true;
                     state = Estado.MOVE;
                     StartCoroutine(PreparePush(0.2f,transform.position));
                 }
@@ -394,6 +395,7 @@ public class Player : MonoBehaviour
         
         this.pushSpeed = pushSpeed;
         pushObj = obj;
+        pushObj.isKinematic = false;
         PushObjdistance = (obj.position - myPos.position).magnitude;
 
         if (!enPie)
@@ -461,6 +463,8 @@ public class Player : MonoBehaviour
         Vector3 movement = Vector3.zero;
         movement = startPos - transform.position;
         movement.y -= 1f;
+        Vector3 offset = transform.InverseTransformPoint(camera.transform.position);
+        camera.transform.parent = myPos.parent;
         animator.SetTrigger("subir");
         while (time < 0.5)
         {
@@ -485,9 +489,13 @@ public class Player : MonoBehaviour
         //movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) * movement;
         movement.y = 0;
         movement *= 0.3f;
+        camera.transform.parent = cameraAnimator.transform;
+        camera.transform.position = transform.TransformPoint(offset);
+        camera.transform.eulerAngles = new Vector3(0, 0, 0);
         controller.Move(movement);
         controllable = true;
         isAnimating = false;
+
     }
 
 
@@ -557,7 +565,6 @@ public class Player : MonoBehaviour
         this.seconds = seconds;
         controllable = false;
         Vector3 now,offset;
-        deltaPos.y = -m_gravity;
         //float deltaHeight;
         if(forma == 0)
         {

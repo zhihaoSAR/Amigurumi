@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class MainControl : MonoBehaviour
 {
+    public static bool realizarDano = true;
     Dictionary<string, string> button = new Dictionary<string, string>();
     //public Text text_Interacturar,text_Subir;
     public Image push, up;
@@ -15,6 +16,11 @@ public class MainControl : MonoBehaviour
     static bool bajaCordura = false,bajaEnergia = false;
     static Sprite HighCordura,LowCordura,HighEnergia,LowEnergia;
     public LevelChangerScript levelChanger;
+    AudioClip finalClip;
+    AudioSource bgm;
+    public GameObject enemy;
+    menupausa menuControl;
+    
     //private ControladorNavMesh controladorNavMesh;
     //public Polilla polilla;
 
@@ -51,6 +57,8 @@ public class MainControl : MonoBehaviour
         LowCordura = Resources.Load<Sprite>("fondo_cordura_low");
         HighEnergia = Resources.Load<Sprite>("fondo_energia_high");
         LowEnergia = Resources.Load<Sprite>("fondo_energia_low");
+        finalClip = Resources.Load<AudioClip>("persecucion");
+
     }
     void Start()
     {
@@ -58,7 +66,8 @@ public class MainControl : MonoBehaviour
         up.name = button["subir"].ToUpper() + " Subir";
         corduraFondo = barra_cordura.transform.GetChild(0).GetComponent<Image>();
         energiaFondo = barra_energia.transform.GetChild(0).GetComponent<Image>();
-        
+        bgm = GameObject.Find("Musica").GetComponent<AudioSource>();
+        menuControl = GetComponent<menupausa>();
     }
 
     public void setInteractuarVisible(bool visible)
@@ -112,8 +121,12 @@ public class MainControl : MonoBehaviour
 
     public void luzEncendida()
     {
-        //controladorNavMesh.DeteberNavMeshAgent();
-        //polilla.activarPolilla();
+        Player.controllable = false;
+        realizarDano = false;
+        enemy.GetComponent<MaquinaDeEstados>().morir();
+        menuControl.cinematicMode(true);
+        StartCoroutine("fadeOutMusic",2f);
+        
     }
 
     public void GameOver()
@@ -121,4 +134,31 @@ public class MainControl : MonoBehaviour
         levelChanger.FadeToLevel(2);    
     }
 
+    public void acabadoAnimacion()
+    {
+        Player.controllable = true;
+        enemy.GetComponent<Animator>().enabled = false;
+        menuControl.cinematicMode(false);
+
+    }
+
+
+    public IEnumerator fadeOutMusic(float second)
+    {
+        float time = 0;
+        while(time < second)
+        {
+            time += Time.deltaTime;
+            bgm.volume = 1 * (second-time / second);
+            yield return null;
+        }
+        bgm.loop = false;
+    }
+
+    public void switchMusic()
+    {
+        bgm.clip = finalClip;
+        bgm.volume = 1;
+        bgm.Play();
+    }
 }

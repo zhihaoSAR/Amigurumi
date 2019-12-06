@@ -101,7 +101,7 @@
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				float t = fmod(_Time.y + _T , 7200);
+				float t = fmod(_Time.y/3 + _T , 7200);
 
 				fixed4 col = 0;
 

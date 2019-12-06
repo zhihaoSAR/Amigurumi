@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 7336281945415018444}
   - component: {fileID: 3545253024504184527}
   m_Layer: 0
-  m_Name: Cajon
+  m_Name: CAJON
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -154,8 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da6ec7277bd4a64c9719e98c2be9301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subible: 0
-  interactuable: 1
   limitMin: {fileID: 0}
   limitMax: {fileID: 0}
   endPos: {fileID: 0}
@@ -185,7 +183,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
