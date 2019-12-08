@@ -11,43 +11,33 @@ public class EstadoPersecución : MonoBehaviour
     private ControladorNavMesh controladorNavMesh;
     private ControladorVision controladorVision;
     //public AudioClip musicaPersecucionClip;
-    //private AudioSource musicaPersecucion;
-    private float distanciaMaxima;
+    private AudioSource musicaPersecucion;
+
 
     void Awake()
     {
         maquinaDeEstados = GetComponent<MaquinaDeEstados>();
         controladorNavMesh = GetComponent<ControladorNavMesh>();
         controladorVision = GetComponent<ControladorVision>();
-        //musicaPersecucion = GetComponent<AudioSource>();
+        musicaPersecucion = GetComponent<AudioSource>();
+        
         agent = GetComponent<NavMeshAgent>();
     }
-    private void Start()
-    {
-        distanciaMaxima = 20f;
 
-    }
-
-    private void OnEnable()
-    {
-        
-    }
 
     void Update()
     {
         RaycastHit hit;
-
-        //float distanciaActual = Vector3.Distance(agent.transform.position, transform.position);
-        //if (distanciaActual > distanciaMaxima)
-        //{
-        //
-        //    maquinaDeEstados.ActivarEstado(maquinaDeEstados.EstadoAlerta);
-        //
-        //}
+        musicaPersecucion.enabled = true;
+        //musicaNormal.enabled = false;
+        //musicaPersecucion.clip = musicaPersecucionClip;
+        //musicaPersecucion.Play();
 
         if (!controladorVision.PuedeVerAlJugador(out hit, true))
         {
             maquinaDeEstados.ActivarEstado(maquinaDeEstados.EstadoAlerta);
+            musicaPersecucion.enabled = false;
+            
             return;
         }
 
