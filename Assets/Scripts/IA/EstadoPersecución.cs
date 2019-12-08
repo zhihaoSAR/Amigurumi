@@ -10,8 +10,8 @@ public class EstadoPersecución : MonoBehaviour
     private NavMeshAgent agent;
     private ControladorNavMesh controladorNavMesh;
     private ControladorVision controladorVision;
-    public AudioClip musicaPersecucionClip;
-    private AudioSource musicaPersecucion;
+    //public AudioClip musicaPersecucionClip;
+    //private AudioSource musicaPersecucion;
     private float distanciaMaxima;
 
     void Awake()
@@ -19,7 +19,7 @@ public class EstadoPersecución : MonoBehaviour
         maquinaDeEstados = GetComponent<MaquinaDeEstados>();
         controladorNavMesh = GetComponent<ControladorNavMesh>();
         controladorVision = GetComponent<ControladorVision>();
-        musicaPersecucion = GetComponent<AudioSource>();
+        //musicaPersecucion = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
     }
     private void Start()

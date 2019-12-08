@@ -12,8 +12,8 @@ public class EstadoPatrulla : MonoBehaviour
     private MaquinaDeEstados maquinaDeEstados;
     private ControladorVision controladorVision;
     private NavMeshAgent agent;
-    public AudioClip clip;
-    private AudioSource source;
+    //public AudioClip clip;
+    //private AudioSource source;
 
     void Awake()
     {
@@ -30,8 +30,8 @@ public class EstadoPatrulla : MonoBehaviour
         RaycastHit hit;
         if(controladorVision.PuedeVerAlJugador(out hit))
         {
-            source.clip = clip;
-            source.Play();
+            //source.clip = clip;
+            //source.Play();
 
             controladorNavMesh.perseguirObjetivo = hit.transform;
             maquinaDeEstados.ActivarEstado(maquinaDeEstados.EstadoPersecucion);
