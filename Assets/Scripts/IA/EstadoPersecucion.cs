@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EstadoPersecución : MonoBehaviour
+public class EstadoPersecucion : MonoBehaviour
 {
     
     private MaquinaDeEstados maquinaDeEstados;
