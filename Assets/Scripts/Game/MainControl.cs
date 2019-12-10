@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class MainControl : MonoBehaviour
 {
-    public static bool realizarDano = true;
+    public static bool levelComplete = false;
     Dictionary<string, string> button = new Dictionary<string, string>();
     //public Text text_Interacturar,text_Subir;
     public Image push, up;
@@ -122,7 +122,7 @@ public class MainControl : MonoBehaviour
     public void luzEncendida()
     {
         Player.controllable = false;
-        realizarDano = false;
+        levelComplete = true;
         enemy.GetComponent<MaquinaDeEstados>().morir();
         menuControl.cinematicMode(true);
         StartCoroutine("fadeOutMusic",2f);
