@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     //player
     public float cordura,energia;
     private bool recibiendoDano = false,gastandoEnergia = false;
-    public Camera camera;
+    public new Camera camera;
     Animator cameraAnimator;
     public Transform myPos;
 

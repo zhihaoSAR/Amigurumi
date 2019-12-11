@@ -21,16 +21,13 @@ public class MainControl : MonoBehaviour
     AudioSource bgm;
     public GameObject enemy;
     menupausa menuControl;
-    
-    //private ControladorNavMesh controladorNavMesh;
-    //public Polilla polilla;
+
 
 
 
     void Awake()
     {
-        //controladorNavMesh = GetComponent<ControladorNavMesh>();
-        //polilla = GetComponent<Polilla>();
+        /*
         var inputManager = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset")[0];
         SerializedObject obj = new SerializedObject(inputManager);
         SerializedProperty axisArray = obj.FindProperty("m_Axes");
@@ -52,7 +49,7 @@ public class MainControl : MonoBehaviour
             {
                 button.Add(name, value);
             }
-        }
+        }*/
 
         HighCordura = Resources.Load<Sprite>("fondo_cordura_high");
         LowCordura = Resources.Load<Sprite>("fondo_cordura_low");
@@ -63,8 +60,8 @@ public class MainControl : MonoBehaviour
     }
     void Start()
     {
-        push.name = button["interactuar"].ToUpper() + " Interactuar";
-        up.name = button["subir"].ToUpper() + " Subir";
+        //push.name = button["interactuar"].ToUpper() + " Interactuar";
+        //up.name = button["subir"].ToUpper() + " Subir";
         corduraFondo = barra_cordura.transform.GetChild(0).GetComponent<Image>();
         energiaFondo = barra_energia.transform.GetChild(0).GetComponent<Image>();
         bgm = GameObject.Find("Musica").GetComponent<AudioSource>();

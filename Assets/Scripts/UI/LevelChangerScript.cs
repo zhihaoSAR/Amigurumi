@@ -18,6 +18,7 @@ public class LevelChangerScript : MonoBehaviour
     {
         levelLoaded = indexLevel;
         animator.SetTrigger("fadeOut");
+        Time.timeScale = 1;
     }
 
     public void OnFadeComplete()
