@@ -20,6 +20,7 @@ public class EstadoPatrulla : MonoBehaviour
         maquinaDeEstados = GetComponent<MaquinaDeEstados>();
         controladorNavMesh = GetComponent<ControladorNavMesh>();
         controladorVision = GetComponent<ControladorVision>();
+        agent = GetComponent<NavMeshAgent>();
         //source = GetComponent<AudioSource>();
     }
 
@@ -28,7 +29,7 @@ public class EstadoPatrulla : MonoBehaviour
     {
         //Ve al jugador??
         RaycastHit hit;
-
+        agent.speed = 2.5f;
         if(controladorVision.PuedeVerAlJugador(out hit))
         {
             //source.clip = clip;
