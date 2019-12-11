@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
         {
             Debug.DrawLine(transform.position, (player.myPos.position - transform.position) * hit.distance, Color.yellow);
             obj = hit.collider.gameObject;
-            if (obj.tag == "Player" && MainControl.realizarDano)
+            if (obj.tag == "Player" && !MainControl.levelComplete)
             {
                 player.recibirDano(transform.position);
             }
