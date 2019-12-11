@@ -16,6 +16,7 @@ public class MainControl : MonoBehaviour
     static bool bajaCordura = false,bajaEnergia = false;
     static Sprite HighCordura,LowCordura,HighEnergia,LowEnergia;
     public LevelChangerScript levelChanger;
+    public Collider col;
     AudioClip finalClip;
     AudioSource bgm;
     public GameObject enemy;

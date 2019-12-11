@@ -5,12 +5,11 @@ using UnityEngine.AI;
 
 public class EstadoPersecucion : MonoBehaviour
 {
-    
+    MainControl mc;
     private MaquinaDeEstados maquinaDeEstados;
     private NavMeshAgent agent;
     private ControladorNavMesh controladorNavMesh;
     private ControladorVision controladorVision;
-    //public AudioClip musicaPersecucionClip;
     private AudioSource musicaPersecucion;
 
 
@@ -20,7 +19,7 @@ public class EstadoPersecucion : MonoBehaviour
         controladorNavMesh = GetComponent<ControladorNavMesh>();
         controladorVision = GetComponent<ControladorVision>();
         musicaPersecucion = GetComponent<AudioSource>();
-        
+        mc = GameObject.Find("MainControl").GetComponent<MainControl>();
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -28,6 +27,7 @@ public class EstadoPersecucion : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
+        agent.speed = 6f;
         musicaPersecucion.enabled = true;
         //musicaNormal.enabled = false;
         //musicaPersecucion.clip = musicaPersecucionClip;
@@ -42,5 +42,13 @@ public class EstadoPersecucion : MonoBehaviour
         }
 
         controladorNavMesh.ActualizarPuntoDestinoNavMeshAgent();
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && enabled)
+        {
+            mc.GameOver();
+        }
     }
 }
