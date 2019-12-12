@@ -43,6 +43,8 @@ public class EstadoPersecucion : MonoBehaviour
         }
 
         controladorNavMesh.ActualizarPuntoDestinoNavMeshAgent();
+
+
     }
 
     public void OnTriggerEnter(Collider other)

@@ -13,7 +13,7 @@ public class menupausa : MonoBehaviour
         menu.enabled = false;
         ui.enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
+        Cursor.visible = false;
         uiGroup = ui.GetComponent<CanvasGroup>();
     }
 
@@ -40,12 +40,14 @@ public class menupausa : MonoBehaviour
             if (menu.enabled)
             {
                 Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
                 Time.timeScale = 0;
             }
             else
             {
 
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 Time.timeScale = 1;
             }
 
