@@ -29,6 +29,7 @@ public class EstadoPersecucion : MonoBehaviour
         RaycastHit hit;
         agent.speed = 6f;
         musicaPersecucion.enabled = true;
+        
         //musicaNormal.enabled = false;
         //musicaPersecucion.clip = musicaPersecucionClip;
         //musicaPersecucion.Play();

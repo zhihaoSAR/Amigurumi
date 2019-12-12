@@ -132,6 +132,7 @@ public class MainControl : MonoBehaviour
         levelChanger.FadeToLevel(2);    
     }
 
+
     public void acabadoAnimacion()
     {
         Player.controllable = true;
