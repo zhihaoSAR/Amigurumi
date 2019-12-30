@@ -47,6 +47,7 @@ public class Player : MonoBehaviour
     //variable global para controlar animacion
     float time,seconds;
     bool isAnimating = false;
+    int aniCount = 0;
 
     //valor entre 0-1
     //si el amigurumi esta dentro de (wMin,hMin) (wMax,hMax) recibe dano
@@ -111,7 +112,7 @@ public class Player : MonoBehaviour
                 if (func.subible(hit))
                 {
                     mc.setSubirVisible(true);
-                    if (Input.GetButtonDown("subir") && state.Equals(Estado.MOVE) && controllable)
+                    if (Input.GetButtonDown("subir") && controllable)
                     {
                         func.OnInteraction(ray, hit, 1);
                         
@@ -220,7 +221,7 @@ public class Player : MonoBehaviour
                     if(energia <= 0)
                     {
                         canRun = false;
-                        StartCoroutine("activarRun", 3.0f);
+                        StartCoroutine(activarRun(3.0f));
                     }
 
                 }
@@ -267,8 +268,7 @@ public class Player : MonoBehaviour
             {
                 camera.transform.eulerAngles = new Vector3(camera.transform.eulerAngles.x + rotationx,
                                                             camera.transform.eulerAngles.y + rotationy, 0);
-                if (Input.GetButton("interactuar") &&
-                                        (pushObj.position - myPos.position).magnitude < PushObjdistance+3)
+                if (!Input.GetButtonDown("interactuar")&&(pushObj.position - myPos.position).magnitude < PushObjdistance+3)
                 {
                     Vector3 movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) *
                                 new Vector3(0, moveY, vertical);
@@ -291,19 +291,23 @@ public class Player : MonoBehaviour
                     }
                     Vector3 moveStep = movement * pushSpeed * Time.deltaTime;
                     Vector3 objetivo;
+                    bool isOut = false;
                     if (limited)
                     {
 
                         moveStep = Vector3.Project(moveStep, rail);
                         
                         objetivo = pushObj.position + moveStep;
-                        if (Utility.isGreaterOrEqual(limitMax,limitMin,objetivo) == 1)
+                        int aux = Utility.isGreaterOrEqual(limitMax, limitMin, objetivo);
+                        if (aux == 1)
                         {
                             objetivo = limitMax;
+                            isOut = true;
                         }
-                        else if (Utility.isGreaterOrEqual(limitMax,limitMin,objetivo) == 2)
+                        else if (aux == 2)
                         {
                             objetivo = limitMin;
+                            isOut = true;
                         }
 
                     }
@@ -315,7 +319,15 @@ public class Player : MonoBehaviour
 
                     Vector3 lastPosicion = pushObj.position;
                     pushObj.MovePosition(objetivo);
-                    movement = pushObj.position - lastPosicion;
+                    if(isOut)
+                    {
+                        movement = Vector3.zero;
+                    }
+                    else
+                    {
+                        movement = pushObj.position - lastPosicion;
+                    }
+                    
                     movement.y = -m_gravity;
                     controller.Move(movement);
                 }
@@ -324,6 +336,7 @@ public class Player : MonoBehaviour
                     controllable = false;
                     //setAnimation("parado",null);
                     animator.speed = 1;
+                    cameraAnimator.speed = 1;
                     pushObj.isKinematic = true;
                     state = Estado.MOVE;
                     StartCoroutine(PreparePush(0.2f,transform.position));
@@ -422,11 +435,13 @@ public class Player : MonoBehaviour
         }
         
         state = Estado.PUSH;
+        gastandoEnergia = false;
         setAnimation("enPie","empujar");
         StartCoroutine(PreparePush( 0.5f, startPos));
     }
     IEnumerator PreparePush( float seconds, Vector3 pos)
     {
+        aniCount++;
         while(isAnimating)
         {
             yield return new WaitForSeconds(this.seconds - time);
@@ -451,36 +466,50 @@ public class Player : MonoBehaviour
         movement = pos - transform.position;
         movement.y = -m_gravity;
         controller.Move(movement);
-        controllable = true;
+        
         isAnimating = false;
+        if(--aniCount == 0)
+        {
+            controllable = true;
+        }
     }
     public void saltar( Vector3 startPos,Vector3 endPos)
     {
-
+        controllable = false;
+        if (state == Estado.PUSH)
+        {
+            animator.speed = 1;
+            cameraAnimator.speed = 1;
+            pushObj.isKinematic = true;
+            state = Estado.MOVE;
+        }
         if (!enPie)
         {
             enPie = true;
             ponerEnPie(true);
+            Debug.Log(enPie);
         }
-
+        
+        
         setAnimation("enPie", null);
         StartCoroutine(subir(1f, startPos,endPos));
     }
 
     IEnumerator subir(float seconds, Vector3 startPos,Vector3 endPos)
     {
+        aniCount++;
         while (isAnimating)
         {
-            yield return null;
+            yield return new WaitForSeconds(this.seconds - time);
         }
         isAnimating = true;
         time = 0;
         this.seconds = seconds;
-        controllable = false;
         Vector3 movement = Vector3.zero;
         movement = startPos - transform.position;
         movement.y -= 1f;
         Vector3 offset = transform.InverseTransformPoint(camera.transform.position);
+        camera.transform.eulerAngles = new Vector3(0, 0, 0);
         camera.transform.parent = myPos.parent;
         animator.SetTrigger("subir");
         while (time < 0.5)
@@ -490,8 +519,6 @@ public class Player : MonoBehaviour
 
             yield return null;
         }
-        
-        movement = Vector3.zero;
         movement = endPos;
         movement.y = 1f;
         time = 0;
@@ -505,13 +532,17 @@ public class Player : MonoBehaviour
         }
         //movement = Quaternion.Euler(0, transform.eulerAngles.y, 0) * movement;
         movement.y = 0;
-        movement *= 0.3f;
+        movement *= 2f;
         camera.transform.parent = cameraAnimator.transform;
         camera.transform.position = transform.TransformPoint(offset);
         camera.transform.eulerAngles = new Vector3(0, 0, 0);
         controller.Move(movement);
-        controllable = true;
+        
         isAnimating = false;
+        if(--aniCount == 0)
+        {
+            controllable = true;
+        }
 
     }
 
@@ -573,6 +604,7 @@ public class Player : MonoBehaviour
 
     IEnumerator ponerEnPie(float seconds,int forma,Vector3 deltaPos)
     {
+        aniCount++;
         while (isAnimating)
         {
             yield return new WaitForSeconds(this.seconds - time);
@@ -617,7 +649,12 @@ public class Player : MonoBehaviour
             controller.center = new Vector3(0, 0.4f, 1.8f);
         }
 
-        controllable = true;
+        
         isAnimating = false;
+        if(--aniCount == 0)
+        {
+            controllable = true;
+        }
+        
     }
 }
