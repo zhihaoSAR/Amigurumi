@@ -21,9 +21,11 @@ public class cajon : MonoBehaviour,Interactuable
     //1 para subir
     public void OnInteraction(Ray ray, RaycastHit hit, int control)
     {
-        if(control == 0)
+        Vector3 dir = ray.direction;
+        dir.y = 0;
+        dir.Normalize();
+        if (control == 0)
         {
-            Vector3 dir = ray.direction.normalized;
             Vector3 pushPos;
             pushPos = hit.point - dir;
             pushPos.y = transform.position.y;
@@ -31,9 +33,10 @@ public class cajon : MonoBehaviour,Interactuable
         }
         else
         {
-            Vector3 end = ray.direction.normalized;
+            
+            Vector3 end = dir;
             end.y = endPos.position.y;
-            Vector3 start = hit.point - ray.direction.normalized;
+            Vector3 start = hit.point - dir*2;
             start.y = endPos.position.y;
             player.saltar(start,end);
         }
