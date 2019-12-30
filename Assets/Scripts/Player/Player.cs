@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     string lastAnimation = null,lastNivel = "parado";
     public Animator animator;
     bool enPie = false;
-
+    bool canRun = true;
     //moverCamara
     public float speedH, speedV, //variable que controla la sensibilidad
                     limitUp, limitDown; // para controlar limite de la rotacion x 
@@ -200,7 +200,7 @@ public class Player : MonoBehaviour
                                 new Vector3(horizontal, moveY, vertical);
 
 
-                if (Input.GetButton("correr") && energia >= 0)
+                if (Input.GetButton("correr")&&canRun && energia >= 0)
                 {
                     if (!enPie)
                     {
@@ -217,6 +217,11 @@ public class Player : MonoBehaviour
                     }
                     enPie = false;
                     gastandoEnergia = false;
+                    if(energia <= 0)
+                    {
+                        canRun = false;
+                        StartCoroutine("activarRun", 3.0f);
+                    }
 
                 }
 
@@ -344,6 +349,18 @@ public class Player : MonoBehaviour
             
         }
 
+    }
+
+    IEnumerator activarRun(float seconds)
+    {
+        float mytime = 0;
+        while(mytime < seconds)
+        {
+            mytime += Time.deltaTime;
+            yield return null;
+        }
+        canRun = true;
+        
     }
 
     //funcion para controlar la animacion
