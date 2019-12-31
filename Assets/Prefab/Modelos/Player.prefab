@@ -1789,7 +1789,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3133005605936856366
 Transform:
   m_ObjectHideFlags: 0
@@ -2279,7 +2279,6 @@ MonoBehaviour:
   myPos: {fileID: 3133005606126149341}
   speed: 5
   runSpeed: 1.5
-  controllable: 1
   animator: {fileID: 3133005605180029779}
   speedH: 5
   speedV: 5
