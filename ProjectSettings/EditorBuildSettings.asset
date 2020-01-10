@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Introduction.unity
     guid: 96625778c64aa6643b83af2275f24350
+  - enabled: 1
+    path: "Assets/Scenes/Cinematicas/Cinem\xE1tica.unity"
+    guid: 8ab54a23a9aebb743ac8164a4e7d1417
   m_configObjects: {}
