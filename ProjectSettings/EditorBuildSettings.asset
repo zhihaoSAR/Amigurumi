@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/nivel2.unity
     guid: 4addd35a68baad847bb8e388ca233029
+  - enabled: 1
+    path: Assets/Scenes/Pasillo.unity
+    guid: 4fd7b3d240abd62469b16d71f4dabfd4
   m_configObjects: {}
