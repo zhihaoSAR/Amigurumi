@@ -2940,7 +2940,7 @@ MonoBehaviour:
   overrideColor: 0
   overridingColor: {r: 0.9999, g: 0.9999, b: 0.9999, a: 0.9999}
   useShadow: 1
-  shadowMapRenderTexture: {fileID: 981373125}
+  shadowMapRenderTexture: {fileID: 723436832}
   useCookie: 1
   cookieMapRenderTexture: {fileID: 0}
   enableOutOfPhaseColor: 0
@@ -3338,6 +3338,40 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: ce6402bc5c0679344a343b08fe9026d4, type: 3}
+--- !u!84 &723436832
+RenderTexture:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_ImageContentsHash:
+    serializedVersion: 2
+    Hash: 00000000000000000000000000000000
+  m_ForcedFallbackFormat: 4
+  m_DownscaleFallback: 0
+  serializedVersion: 3
+  m_Width: 512
+  m_Height: 512
+  m_AntiAliasing: 1
+  m_DepthFormat: 0
+  m_ColorFormat: 52
+  m_MipMap: 0
+  m_GenerateMips: 1
+  m_SRGB: 0
+  m_UseDynamicScale: 0
+  m_BindMS: 0
+  m_EnableCompatibleFormat: 1
+  m_TextureSettings:
+    serializedVersion: 2
+    m_FilterMode: 1
+    m_Aniso: 1
+    m_MipBias: 0
+    m_WrapU: 1
+    m_WrapV: 1
+    m_WrapW: 1
+  m_Dimension: 2
+  m_VolumeDepth: 1
 --- !u!1 &752118313
 GameObject:
   m_ObjectHideFlags: 0
@@ -4104,40 +4138,6 @@ Transform:
   m_Father: {fileID: 471158079}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!84 &981373125
-RenderTexture:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_ImageContentsHash:
-    serializedVersion: 2
-    Hash: 00000000000000000000000000000000
-  m_ForcedFallbackFormat: 4
-  m_DownscaleFallback: 0
-  serializedVersion: 3
-  m_Width: 512
-  m_Height: 512
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
-  m_ColorFormat: 52
-  m_MipMap: 0
-  m_GenerateMips: 1
-  m_SRGB: 0
-  m_UseDynamicScale: 0
-  m_BindMS: 0
-  m_EnableCompatibleFormat: 1
-  m_TextureSettings:
-    serializedVersion: 2
-    m_FilterMode: 1
-    m_Aniso: 1
-    m_MipBias: 0
-    m_WrapU: 1
-    m_WrapV: 1
-    m_WrapW: 1
-  m_Dimension: 2
-  m_VolumeDepth: 1
 --- !u!4 &982548028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1073771667737045420, guid: 2f8d4909847115f4c9a6d41d55eb03e6,
@@ -4235,6 +4235,51 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainControl
       objectReference: {fileID: 0}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: text_Subir
+      value: 
+      objectReference: {fileID: 2060105181}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: text_Interacturar
+      value: 
+      objectReference: {fileID: 125883557}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: barra_cordura
+      value: 
+      objectReference: {fileID: 1434544253}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: barra_energia
+      value: 
+      objectReference: {fileID: 1140352760}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: levelChanger
+      value: 
+      objectReference: {fileID: 1158327778}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: push
+      value: 
+      objectReference: {fileID: 1469256866}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: up
+      value: 
+      objectReference: {fileID: 1722399098}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 1052743048}
+    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
+        type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 652249083439476404, guid: d5531930eee856649afa68d71f3f991c,
         type: 3}
       propertyPath: menu
@@ -4299,51 +4344,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: text_Subir
-      value: 
-      objectReference: {fileID: 2060105181}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: text_Interacturar
-      value: 
-      objectReference: {fileID: 125883557}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: barra_cordura
-      value: 
-      objectReference: {fileID: 1434544253}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: barra_energia
-      value: 
-      objectReference: {fileID: 1140352760}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: levelChanger
-      value: 
-      objectReference: {fileID: 1158327778}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: push
-      value: 
-      objectReference: {fileID: 1469256866}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: up
-      value: 
-      objectReference: {fileID: 1722399098}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: enemy
-      value: 
-      objectReference: {fileID: 1052743048}
-    - target: {fileID: 652249082474338452, guid: d5531930eee856649afa68d71f3f991c,
-        type: 3}
-      propertyPath: col
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5531930eee856649afa68d71f3f991c, type: 3}
@@ -4869,9 +4869,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6f03aceb1ff09e9479d5eb15f6b50091, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7a18c70ff8af3e14f828be8b98750dd0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.166
+  m_Volume: 0.96
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6544,7 +6544,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 6f03aceb1ff09e9479d5eb15f6b50091, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7a18c70ff8af3e14f828be8b98750dd0, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.298
   m_Pitch: 1

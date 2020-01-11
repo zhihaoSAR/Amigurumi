@@ -18,7 +18,7 @@ public class puerta : MonoBehaviour,Interactuable
     public void OnInteraction(Ray ray, RaycastHit hit, int control)
     {
         sonido.Play();
-        Levelchanger.FadeToLevel(0);
+        Levelchanger.FadeToLevel(6);
     }
 
     public bool subible(RaycastHit hit)
