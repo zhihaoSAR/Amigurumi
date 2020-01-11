@@ -3,7 +3,12 @@ guid: 6654aafcd402b6b43aa271a203dfc1ba
 ModelImporter:
   serializedVersion: 25
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: cuerda
+    second: {fileID: 2100000, guid: 516444f8fd35a494b8d4fd3785a675db, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
