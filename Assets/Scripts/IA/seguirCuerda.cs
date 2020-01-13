@@ -21,11 +21,11 @@ oso = GameObject.Find("Enemigo_NV1");
     void Update()
     {
 	secondsCounter += Time.deltaTime;
+	lineRenderer.SetPosition(c-1, oso.transform.position);
       if (secondsCounter >= secondsToCount)
       {
          secondsCounter=0;
-         lineRenderer.positionCount = c;
-        lineRenderer.SetPosition((c++)-1, oso.transform.position);
+         lineRenderer.positionCount = ++c;
       }
 	
     }
