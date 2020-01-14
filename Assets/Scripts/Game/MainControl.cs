@@ -21,6 +21,7 @@ public class MainControl : MonoBehaviour
     AudioSource bgm;
     public GameObject enemy;
     menupausa menuControl;
+    public ParticleSystem mothExplosion;
 
 
 
@@ -138,7 +139,11 @@ public class MainControl : MonoBehaviour
         Player.controllable = true;
         enemy.GetComponent<Animator>().enabled = false;
         menuControl.cinematicMode(false);
-
+        mothExplosion.Play();
+        GameObject amigurimi = GameObject.Find("/Enemigo_NV1");
+        GameObject hilo = GameObject.Find("/nivel1 objetos/cuerda");
+        amigurimi.SetActive(false);
+        hilo.SetActive(false);
     }
 
 
