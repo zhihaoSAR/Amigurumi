@@ -18,7 +18,7 @@ public class puertaPasillo : MonoBehaviour, Interactuable
     public void OnInteraction(Ray ray, RaycastHit hit, int control)
     {
         sonido.Play();
-        Levelchanger.FadeToLevel(7);
+        Levelchanger.FadeToLevel(5);
     }
 
     public bool subible(RaycastHit hit)
